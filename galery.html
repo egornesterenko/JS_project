@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/gallery.css">
+    <link rel="stylesheet" type="text/css" href="css/pagination.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <script src="axios.min.js"></script>
+</head>
+<body>
+<header class="head ">
+    <div class="logo text">
+        <img src="media/K.png" alt="">
+        <div>etler.</div>
+    </div>
+    <nav id="navigation">
+        <ul class="menu" >
+            <li class="menu_li" ><a class="text" href="http://localhost:8080/gallery">Adverts</a>
+                <ul class="sub_menu">
+                    <li class="sub_menu_li"><a class="text" href="http://localhost:8080/gallery?sell">Buy</a></li>
+                    <li class="sub_menu_li"><a class="text" href="http://localhost:8080/gallery?rent">Rent</a></li>
+                    <li class="sub_menu_li"><a class="text" href="http://localhost:8080/map.html">On map</a></li>
+                </ul>
+            </li>
+            <li class="menu_li"><a class="text" href="http://localhost:8080/makeAdvert.html">Sell</a></li>
+            <li class="menu_li"><a class="text" href="http://localhost:8080/about.html">Agency</a>
+                <ul class="sub_menu">
+                    <li class="sub_menu_li"><a class="text" href="http://localhost:8080/about.html">About</a></li>
+                    <li class="sub_menu_li"><a class="text" href="http://localhost:8080/services.html">Services</a></li>
+                    <li class="sub_menu_li"><a class="text" href="http://localhost:8080/about.html">Contacts</a></li>
+                    <li class="sub_menu_li"><a class="text" href="http://localhost:8080/custom_gallery.html">Gallery</a></li>
+                    <li class="sub_menu_li"><a class="text" href="http://localhost:8080/feedback.html">Feedback</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="search">
+            <input class="input_search" type="text" placeholder="Search">
+            <div class="button_search"><i class="fas fa-search"></i></div>
+        </div>
+        <div class="wrapper_burger">
+            <input type="checkbox" id="check_menu">
+            <label for="check_menu" class="burger_check"></label>
+            <div class="burger_line first"></div>
+            <div class="burger_line second"></div>
+            <div class="burger_line third"></div>
+            <div class="burger_line fourth"></div>
+            <nav class="burger_menu">
+                <div class="burger_submenu_block text">
+                    <input class="burger_input_search" type="text" placeholder="Search">
+                    <div class="burger_button_search"><i class="fas fa-search"></i></div>
+                </div>
+                <div class="burger_submenu_block text" id="burger_submenu_one">Adverts<i class="fas fa-chevron-down"></i></div>
+                <a class="burger_submenu burger_submenu_one text" href="http://localhost:8080/gallery">All</a>
+                <a class="burger_submenu burger_submenu_one text" href="http://localhost:8080/gallery?sell">Buy</a>
+                <a class="burger_submenu burger_submenu_one text" href="http://localhost:8080/gallery?rent">Rent</a>
+                <a class="burger_submenu burger_submenu_one text" href="http://localhost:8080/map.html">On map</a>
+                <a class="burger_submenu_block text" href="http://localhost:8080/makeAdvert.html">Sell</a>
+                <div class="burger_submenu_block text">Agency<i class="fas fa-chevron-down"></i></div>
+                <a class="burger_submenu burger_submenu_two text" href="http://localhost:8080/about.html">About</a>
+                <a class="burger_submenu burger_submenu_two text" href="http://localhost:8080/services.html">Servises</a>
+                <a class="burger_submenu burger_submenu_two text" href="http://localhost:8080/about.html">Contacts</a>
+                <a class="burger_submenu burger_submenu_two text" href="http://localhost:8080/custom_gallery.html">Gallery</a>
+                <a class="burger_submenu burger_submenu_two text" href="http://localhost:8080/feedback.html">Feedback</a>
+            </nav>
+        </div>
+    </nav>
+</header>
+<div class="gallery_block">
+    <div class="filter_block">
+        <label for="filter_type">Type</label>
+        <select class="filter" id="filter_type">
+            <option></option>
+            <option>Sell</option>
+            <option>Rent</option>
+        </select>
+        <label for="filter_city">City</label>
+        <select class="filter" id="filter_city">
+            <option></option>
+        </select>
+        <label for="filter_district">District</label>
+        <select class="filter" id="filter_district">
+            <option></option>
+        </select>
+        <button class="filter_button">Show</button>
+    </div>
+
+    <section class="pagination">
+
+        <label>Go to Page <input type="text" name="page_input" class="page_input" value=""></label>
+
+        <a href="#" class="goto">&gt;&gt;</a>
+
+        <nav class="pagination_nav">
+            <a href="http://" class="previous">&lt; Prev</a>
+            <div class="page_nav">
+
+            </div>
+            <a href="http://" class="next">Next &gt;</a>
+        </nav>
+    </section>
+    <div class="card_container">
+
+    </div>
+    <section class="pagination">
+
+        <label>Go to Page <input type="text" name="page_input" class="page_input" value=""></label>
+
+        <a href="#" class="goto">&gt;&gt;</a>
+
+        <nav class="pagination_nav">
+            <a href="http://" class="previous">&lt; Prev</a>
+            <div class="page_nav">
+
+            </div>
+            <a href="http://" class="next">Next &gt;</a>
+        </nav>
+    </section>
+</div>
+<footer class="footer">
+    <div class="share_wrapper">
+        <a class="share_link" href="#"
+           onclick="popup(`http://www.facebook.com/share.php?u=https://${shareUrl}`)">
+            <i class="fab fa-facebook"></i></a>
+        <a class="share_link" href="#"
+           onclick="popup('https://twitter.com/intent/tweet?&status='+document.title+'%20Agency%20––%20The%20way%20to%20your%20home++%28'+shareUrl+'%29&hashtags=realestate,ketler,ketleragency')">
+            <i class="fab fa-twitter"></i></a>
+        <a class="share_link" href="#"
+           onclick="popup(`https://telegram.me/share/url?url=${shareUrl}&text=Ketler%20Agency%20–%20The%20way%20to%20your%20home`)">
+            <i class="fab fa-telegram"></i></a>
+    </div>
+    <div class="footer_text_block text">
+        <span class="footer_text text">©2019 Ketler. All Rights Reserved.</span>
+        <span class="footer_text text">Site by Deliieva Oleksandra</span>
+    </div>
+</footer>
+    <script src="js/pagination.js"></script>
+    <script src="js/navigation.js"></script>
+</body>
+</html>

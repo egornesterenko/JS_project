@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Hashtag Blog</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/mainPage.css">
+	<link rel="stylesheet" type="text/css" href="css/makeAdvert.css">
+	<link rel="stylesheet" type="text/css" href="css/about.css">
+	<script src="axios.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Cabin+Sketch&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" href="media/logo.png" type="image/x-icon">
+	<script src="https://kit.fontawesome.com/8c5f8983b2.js" crossorigin="anonymous"></script>
+</head>
+<body>
+	<header>
+		<nav>
+			<input type="checkbox" id="checkbox-menu">
+			<label for="checkbox-menu">
+			<ul class="menu touch">
+				<li><a class="logo" href="index.html">#hashtag</a></li>
+				<li><a href="#">About</a></li>
+				<li><a href="#">Find articles</a></li>
+				<li><a href="#">Contact us</a></li>
+				<li><a href="#">Join Us</a></li>
+				<li><a href="#">Something</a></li>
+			</ul>
+			<span class="toggle">☰</span>
+			</label>
+		</nav>
+	</header>
+<div class="fiction"></div>
+<form class="form" action="/signUp.html" method="post">
+    <div class="form_part">
+    <label for="firstname">Firstname*</label>
+    <input id="firstname" type="text" name="firtname" required>
+    </div>
+
+    <div class="form_part">
+    <label for="lastname">Lastname*</label>
+    <input id="lastname" type="text" name="lastname" required>
+    </div>
+
+     <div class="form_part">
+    <label for="email">Email*</label>
+    <input id="email" type="email" name="email" required>
+     </div>
+
+    <div class="form_part">
+    <label for="telephone">Telephone*</label>
+    <input id="telephone" type="text" name="telephone" required>
+    </div>
+
+    <div class="form_part">
+    <label for="pass">Password*</label>
+    <input id="pass" type="text" name="pass" required>
+    </div>
+
+    <div class="form_part">
+    <label for="checkpass">Confirm your password*</label>
+    <input id="checkpass" type="text" name="checkpass" required>
+    </div>
+
+    <div class="form_part">
+    <label for="login">Login*</label>
+    <input id="login" type="text" name="login" required>
+    </div>
+    <span class="form_note">* fields are required</span>
+    <input type="submit" value="Submit" class="submit_form_button">
+</form>
+<div id="error">
+<footer class="footer">
+    <div class="share_wrapper">
+        <a class="share_link" href="#"
+           onclick="popup(`http://www.facebook.com/share.php?u=https://${shareUrl}`)">
+            <i class="fab fa-facebook"></i></a>
+        <a class="share_link" href="#"
+           onclick="popup('https://twitter.com/intent/tweet?&status='+document.title+'%20Agency%20––%20The%20way%20to%20your%20home++%28'+shareUrl+'%29&hashtags=realestate,ketler,ketleragency')">
+            <i class="fab fa-twitter"></i></a>
+        <a class="share_link" href="#"
+           onclick="popup(`https://telegram.me/share/url?url=${shareUrl}&text=Ketler%20Agency%20–%20The%20way%20to%20your%20home`)">
+            <i class="fab fa-telegram"></i></a>
+    </div>
+    <div class="footer_text_block text">
+        <span class="footer_text text">©2020 #hashtag blog. All Rights Reserved.</span>
+        <span class="footer_text text">Site by Yehor Nesterenko</span>
+    </div>
+
+</footer>
+
+<script src="js/signUp.js"></script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Hashtag Blog</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/mainPage.css">
+	<link rel="stylesheet" type="text/css" href="css/about.css">
+	<link href="https://fonts.googleapis.com/css?family=Cabin+Sketch&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" href="media/logo.png" type="image/x-icon">
+	<script src="https://kit.fontawesome.com/8c5f8983b2.js" crossorigin="anonymous"></script>
+</head>
+<body>
+	<header>
+		<nav>
+			<input type="checkbox" id="checkbox-menu">
+			<label for="checkbox-menu">
+			<ul class="menu touch">
+				<li><a class="logo" href="index.html">#hashtag</a></li>
+				<li><a href="#">About</a></li>
+				<li><a href="#">Find articles</a></li>
+				<li><a href="#">Contact us</a></li>
+				<li><a href="#">Join Us</a></li>
+				<li><a href="#">Something</a></li>
+			</ul>
+			<span class="toggle">☰</span>
+			</label>
+		</nav>
+	</header>
+
+	<div class="container_about">
+        <div class="captain-contact-page">
+            <h2>About Us</h2>
+        </div>
+        <div class="inside-container">
+            <img  class="photo-about" src="media/about.jpg">
+            <div class="about-us-text">
+                <p class="captain-text-about">Create your blog</p>
+                <hr>
+                <p class="text-about">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+        </div>
+        <div class="developers" id="developers">
+
+        </div>
+    </div>
+    <div id="map"></div>
+<footer class="footer">
+    <div class="share_wrapper">
+        <a class="share_link" href="#"
+           onclick="popup(`http://www.facebook.com/share.php?u=https://${shareUrl}`)">
+            <i class="fab fa-facebook"></i></a>
+        <a class="share_link" href="#"
+           onclick="popup('https://twitter.com/intent/tweet?&status='+document.title+'%20Agency%20––%20The%20way%20to%20your%20home++%28'+shareUrl+'%29&hashtags=realestate,ketler,ketleragency')">
+            <i class="fab fa-twitter"></i></a>
+        <a class="share_link" href="#"
+           onclick="popup(`https://telegram.me/share/url?url=${shareUrl}&text=Ketler%20Agency%20–%20The%20way%20to%20your%20home`)">
+            <i class="fab fa-telegram"></i></a>
+    </div>
+    <div class="footer_text_block text">
+        <span class="footer_text text">©2020 #hashtag blog. All Rights Reserved.</span>
+        <span class="footer_text text">Site by Yehor Nesterenko</span>
+    </div>
+
+</footer>
+<script>
+	    let geocoder;
+		let map;
+
+		function initMap() {
+			geocoder = new google.maps.Geocoder();
+
+			var uluru = {lat: 49.506626, lng: 32.008125};
+			map = new google.maps.Map(document.getElementById('map'), {
+				zoom: 6,
+				center: uluru
+			});
+			axios.post('/get_addresses', {})
+				.then(function(res){
+					codeAddress(res.data);
+				})
+				.catch(function(err){
+					console.log(err);
+				});
+
+
+		}
+
+		function codeAddress(arr) {
+            arr.forEach((curr)=>{
+            	console.log(curr);
+				var InfoWindow = new google.maps.InfoWindow({
+					content: `<a href="http://localhost:8080/advert?advertId=${curr.id}">
+                        ${curr.city},${curr.address}
+                        cost:${curr.cost}$
+                    </a>`
+				});
+
+				geocoder.geocode({ 'address': `${curr.city} ${curr.address}`}, function (results, status) {
+					console.log(results);
+					var latLng = {lat: results[0].geometry.location.lat (), lng: results[0].geometry.location.lng ()};
+					console.log (latLng);
+					if (status === 'OK') {
+						var marker = new google.maps.Marker({
+							position: latLng,
+							map: map
+						});
+						marker.addListener('click', function(){
+							InfoWindow.open(map, marker);
+						});
+					} else {
+						alert('Geocode was not successful for the following reason: ' + status);
+					}
+				});
+            })
+
+
+		}
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKPPrDq5nnnNCZVat5gfT6YpzVyFqpkJM&callback=initMap">
+</script>
+</body>
+</html>

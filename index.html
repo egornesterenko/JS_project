@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Hashtag Blog</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/mainPage.css">
+	<link href="https://fonts.googleapis.com/css?family=Cabin+Sketch&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" href="media/logo.png" type="image/x-icon">
+	<script src="https://kit.fontawesome.com/8c5f8983b2.js" crossorigin="anonymous"></script>
+	<script src="axios.min.js"></script>
+</head>
+<body>
+	<header>
+		<nav>
+			<input type="checkbox" id="checkbox-menu">
+			<label for="checkbox-menu">
+			<ul class="menu touch">
+				<li><a class="logo" href="#">#hashtag</a></li>
+				<li><a href="http://localhost:8080/about.html">About</a></li>
+				<li><a href="#">Find articles</a></li>
+				<li><a href="#">Contact us</a></li>
+				<li><a href="http://localhost:8080/signUp.html">Sign Up</a></li>
+			</ul>
+			
+			<span class="toggle">☰</span>
+			</label>
+		</nav>
+
+	</header>
+		
+		<div class="main-text">
+            <p >Create your blog</p>
+        </div>
+        <div class="description-of-page">
+            <p>Became a part of our community</p>
+        </div>
+        <a href="http://localhost:8080/signIn.html" class="button"><p> <i class="fas fa-sign-in-alt" ></i> Start</p></a>
+        <video autoplay muted loop id="background-video" class="background-video" >
+            <source src="media/Wate2.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+        </video>
+
+		<section class="section">
+			<div class="container">
+				<div class="section__header">
+					<h3 class="section__subtitle">Services</h3>
+					<h2 class="section__title">Something about</h2>
+				</div>
+				<div class="services">
+					<div class="services__item">
+						<img class="services__icon" src="media/icon_1.png" alt="">
+
+						<div class="services__title">
+							Write
+						</div>
+						<div class="services__text">
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+						</div>
+					</div>
+					<div class="services__item">
+						<img class="services__icon" src="media/icon_2.png" alt="">
+
+						<div class="services__title">
+							Read
+						</div>
+						<div class="services__text">
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+						</div>
+					</div>
+					<div class="services__item">
+						<img class="services__icon" src="media/icon_3.png" alt="">
+
+						<div class="services__title">
+							Share
+						</div>
+						<div class="services__text">
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+						</div>
+					</div>
+				</div>
+				<hr>
+				<div class="services">
+					<div class="services__item">
+						<img class="services__icon" src="media/icon_4.png" alt="">
+						<div class="services__title">
+							Like
+						</div>
+						<div class="services__text">
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+						</div>
+					</div>
+					<div class="services__item">
+						<img class="services__icon" src="media/icon_5.png" alt="">
+
+						<div class="services__title">
+							Friends
+						</div>
+						<div class="services__text">
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+						</div>
+					</div>
+					<div class="services__item">
+						<img class="services__icon" src="media/icon_6.png" alt="">
+
+						<div class="services__title">
+							Follow
+						</div>
+						<div class="services__text">
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+						</div>
+					</div>
+				</div>
+				</div>
+		</section>
+
+		<div class="statistics">
+			<div class="container">
+				<div class="stat">
+					<div class="stat__item">
+						<div class="stat__num">100</div>
+						<div class="stat__text">users</div>
+					</div>
+					<div class="stat__item">
+						<div class="stat__num">2000</div>
+						<div class="stat__text">articles</div>
+					</div>
+					<div class="stat__item">
+						<div class="stat__num">300</div>
+						<div class="stat__text">comments</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<section class="section">
+			<div class="container">
+				<div class="section__header">
+					<h3 class="section__subtitle">What you can do?</h3>
+					<h2 class="section__title">Something about</h2>
+					<div class="section__text">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus dolorem quae laudantium ut ullam rerum, cumque rem saepe est, ipsa optio velit? Saepe amet aliquid dolorum voluptatum delectus, neque ex atque dignissimos non recusandae fugiat possimus quos inventore consequatur veritatis eos nulla omnis necessitatibus, sint tempora facilis ipsa qui. Maiores laboriosam voluptatem odio deleniti reprehenderit cum, impedit, ullam, inventore nobis hic quia numquam perspiciatis molestiae animi debitis in rerum suscipit.
+					</div>
+				</div>
+				<img class="section__image" src="media/office.jpg" alt="photo">
+			</div>
+		</section>
+
+	<footer class="footer">
+    <div class="share_wrapper">
+        <a class="share_link" href="#"
+           onclick="popup(`http://www.facebook.com/share.php?u=https://${shareUrl}`)">
+            <i class="fab fa-facebook"></i></a>
+        <a class="share_link" href="#"
+           onclick="popup('https://twitter.com/intent/tweet?&status='+document.title+'%20––%20Create%20your%20blog++%28'+shareUrl+'%29&hashtags=realestate,ketler,ketleragency')">
+            <i class="fab fa-twitter"></i></a>
+        <a class="share_link" href="#"
+           onclick="popup(`https://telegram.me/share/url?url=${shareUrl}&text=Hashtag%20Blog%20–%20Create%20smth%20by%20yourself`)">
+            <i class="fab fa-telegram"></i></a>
+    </div>
+    <div class="footer_text_block text">
+        <span class="footer_text text">©2020 #hashtag blog. All Rights Reserved.</span>
+        <span class="footer_text text">Site by Yehor Nesterenko</span>
+    </div>
+</footer>
+<script src="js/footer.js"> </script>
+</body>
+</html>
