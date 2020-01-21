@@ -1,0 +1,36 @@
+.account_wrapper{
+    padding-top: 5em;
+    width: 80%;
+    margin: auto;
+}
+.account_info{
+    display: inline-block;
+    height: 100%;
+}
+
+.account_icon{
+    height: 10em;
+    width: auto;
+}
+.account_info_part{
+    font-size: 1.5em;
+    margin: 0 0 0.3em 2em;
+}
+
+.title{
+    font-size: 2em;
+    color: #74797c;
+    margin: 0.3em;
+}
+.account_adverts_wrapper{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.account_reviews_wrapper{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}

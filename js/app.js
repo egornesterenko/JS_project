@@ -6,6 +6,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const multer  = require('multer');
 
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'));
@@ -123,6 +124,9 @@ app.post('/article', (req, res) => {
 	});
 });
 
+app.get('/account', checkLoginBefore, (req, res) => {
+	res.sendFile('account.html', { root: '.' })
+});
 
 
 app.get('/login', checkLoginAfter, (req, res) => {
@@ -138,19 +142,35 @@ app.get('/*', function(req, res) {
 });
 
 
-
-
 app.post('/loadUser', function(req, res){
 	if(req.session.userId === 'admin'){
+		res.send({
+				html: `<li class="menu_li"><a id="user_home_link" class="text" href="/adminAcc.html"><i class="fas fa-user"></i>&#160;Homepage</a></li>
+        			<li class="menu_li"><a id="login_logout" class="text" href="/logout"><i class="fas fa-sign-out-alt"></i>Logout</a></li>`,
+				id: req.session.userId
+			}
 		
+		)
 	}
 	else if (!req.session.userId) {
-		
+		res.send({
+			html: `<li class="menu_li"><a id="login_logout" href="/login"><i class="fas fa-sign-in-alt"></i>&#160;Login</a></li>
+             	<li class="menu_li"><a id="signup" href="/signup"><i class="fas fa-plus"></i>&#160;Register</a></li>`
+			}
+			
+		)
 	}
 	else{
+		res.send({
+			html: `<li class="menu_li"><a id="user_home_link" class="text" href="/account"><i class="fas fa-user"></i>&#160;Homepage</a></li>
+        			<li class="menu_li"><a id="login_logout" class="text" href="/logout"><i class="fas fa-sign-out-alt"></i>Logout</a></li>`,
+			id: req.session.userId
+			}
 		
+		)
 	}
 });
+
 
 app.listen(8080);
 
@@ -191,11 +211,9 @@ app.post('/signIn.html', function (req, res) {
 	users.forEach((item) => {
 		if(item.login === req.body.login){
 			log++;
-			console.log('fdks');
 			if(item.pass === req.body.password || item.password === req.body.password){
 				sign++;
 				req.session.userId = item.userId;
-				console.log('fdks');
 				res.end("we are winners");
 			}
 		}
