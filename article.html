@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Hashtag Blog</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/mainPage.css">
+	<link rel="stylesheet" type="text/css" href="css/makeAdvert.css">
+	<link href="https://fonts.googleapis.com/css?family=Cabin+Sketch&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" href="media/logo.png" type="image/x-icon">
+	<script src="https://kit.fontawesome.com/8c5f8983b2.js" crossorigin="anonymous"></script>
+	<script src="./node_modules/axios/dist/axios.min.js"></script>
+</head>
+<body>
+	<header>
+		<nav>
+			<input type="checkbox" id="checkbox-menu">
+			<label for="checkbox-menu">
+			<ul class="menu touch">
+				<li><a class="logo" href="http://localhost:8080/">#hashtag</a></li>
+				<li><a href="http://localhost:8080/about.html">About</a></li>
+				<li><a href="http://localhost:8080/findArticle.html">Find article</a></li>
+			</ul>
+			
+			<span class="toggle">☰</span>
+			</label>
+		</nav>
+
+	</header>
+
+<div class="fiction"></div>
+<div class="advert_block">
+    <div class="advert_block_pictures">
+        <div class="main_picture_wrapper">
+            <img class="main_picture picture" src="#" alt="">
+        </div>
+        <div class="sub_picture_wrapper">
+        </div>
+    </div>
+    <div class="advert_block_information">
+        <div class="advert_block_information_part">
+        </div>
+        <!--<label for="explen_button" class="explen_text text">Enter your phone, and we will call you</label>-->
+        <!--<input id="explen_button" type="text">-->
+        <div class="button_advert button_want_to_see">Want to see!</div>
+    </div>
+</div>
+<div class="full_description text">
+
+</div>
+
+	<footer class="footer">
+    <div class="share_wrapper">
+        <a class="share_link" href="#"
+           onclick="popup(`http://www.facebook.com/share.php?u=https://${shareUrl}`)">
+            <i class="fab fa-facebook"></i></a>
+        <a class="share_link" href="#"
+           onclick="popup('https://twitter.com/intent/tweet?&status='+document.title+'%20Agency%20––%20The%20way%20to%20your%20home++%28'+shareUrl+'%29&hashtags=realestate,ketler,ketleragency')">
+            <i class="fab fa-twitter"></i></a>
+        <a class="share_link" href="#"
+           onclick="popup(`https://telegram.me/share/url?url=${shareUrl}&text=Ketler%20Agency%20–%20The%20way%20to%20your%20home`)">
+            <i class="fab fa-telegram"></i></a>
+    </div>
+    <div class="footer_text_block text">
+        <span class="footer_text text">©2020 #hashtag blog. All Rights Reserved.</span>
+        <span class="footer_text text">Site by Yehor Nesterenko</span>
+    </div>
+</footer>
+<script>
+    window.addEventListener("load", function() {
+        axios.post("/loadUser", {})
+            .then(function(res){
+                if(res){
+                    //document.getElementsByClassName('menu')[0].innerHTML += res.data.html;
+                    if(res.data.id === 'admin'){
+                        let parNode = document.getElementsByClassName('advert_block_information')[0];
+                        let currNode = document.createElement('div');
+                        currNode.setAttribute('type', 'text');
+                        currNode.setAttribute('id', 'button_remove');
+                        currNode.setAttribute('onclick', 'removeClick()');
+                        currNode.className= "button_remove button_advert";
+                        currNode.innerText = 'Remove';
+                        parNode.appendChild(currNode);
+                    }
+                    else if(!res.data.id){
+                        let parNode = document.getElementsByClassName('advert_block_information_part')[0];
+                        let currNode = document.createElement('label');
+                        currNode.className= "explen_text text";
+                        currNode.setAttribute('for', 'explen_button');
+                        currNode.innerText = `Enter your phone, and we will call you`;
+                        parNode.appendChild(currNode);
+
+                        currNode = document.createElement('input');
+                        currNode.setAttribute('id', 'explen_button');
+                        currNode.setAttribute('type', 'text');
+                        parNode.appendChild(currNode);
+                    }
+
+                    // currNode = document.createElement('input');
+                    // currNode.className= "button_want_to_see";
+                    // currNode.innerText = `Want to see!`;
+                    // parNode.appendChild(currNode);
+                }
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+
+        // document.getElementById('button_remove').onclick = function(){
+        //  axios.post('/remove_existing_advert', {
+        //      id: `${window.location.href.substr(start+1)}`
+        //  })
+        //      .then(function(res){
+        //          alert(res.data)
+        //      })
+        //      .catch(function (err) {
+        //          console.log(err);
+        //      });
+        // }
+    })
+
+    // window.onload = function() {
+        const start = window.location.href.lastIndexOf('=');
+        axios.post(`/advert`, {
+            // params: {
+                id: `${window.location.href.substr(start+1)}`
+            // }
+        })
+            .then(function(res){
+                console.log(res.data);
+                let parNode = document.getElementsByClassName('advert_block_information_part')[0];
+                let currNode = document.createElement('div');
+                currNode.className= "information_part_block";
+                parNode.appendChild(currNode);
+
+                parNode = document.getElementsByClassName('information_part_block')[0];
+                currNode = document.createElement('div');
+                currNode.className= "information_part_title";
+                currNode.innerText = `Type:`;
+                parNode.appendChild(currNode);
+
+                parNode = document.getElementsByClassName('information_part_block')[0];
+                currNode = document.createElement('span');
+                currNode.className= "information_part";
+                currNode.innerText = `${res.data.type}`;
+                parNode.appendChild(currNode);
+                //
+                parNode = document.getElementsByClassName('information_part_block')[0];
+                currNode = document.createElement('div');
+                currNode.className= "information_part_title";
+                currNode.innerText = `City:`;
+                parNode.appendChild(currNode);
+
+                parNode = document.getElementsByClassName('information_part_block')[0];
+                currNode = document.createElement('span');
+                currNode.className= "information_part";
+                currNode.innerText = `${res.data.city}`;
+                parNode.appendChild(currNode);
+                //
+                parNode = document.getElementsByClassName('information_part_block')[0];
+                currNode = document.createElement('div');
+                currNode.className= "information_part_title";
+                currNode.innerText = `District:`;
+                parNode.appendChild(currNode);
+
+                parNode = document.getElementsByClassName('information_part_block')[0];
+                currNode = document.createElement('span');
+                currNode.className= "information_part";
+                currNode.innerText = `${res.data.district}`;
+                parNode.appendChild(currNode);
+                //
+                parNode = document.getElementsByClassName('information_part_block')[0];
+                currNode = document.createElement('div');
+                currNode.className= "information_part_title";
+                currNode.innerText = `Address:`;
+                parNode.appendChild(currNode);
+
+                parNode = document.getElementsByClassName('information_part_block')[0];
+                currNode = document.createElement('span');
+                currNode.className= "information_part";
+                currNode.innerText = `${res.data.address}`;
+                parNode.appendChild(currNode);
+                //
+                parNode = document.getElementsByClassName('information_part_block')[0];
+                currNode = document.createElement('div');
+                currNode.className= "information_part_title";
+                currNode.innerText = `Number of rooms:`;
+                parNode.appendChild(currNode);
+
+                parNode = document.getElementsByClassName('information_part_block')[0];
+                currNode = document.createElement('span');
+                currNode.className= "information_part";
+                currNode.innerText = `${res.data.rooms}`;
+                parNode.appendChild(currNode);
+                //
+                parNode = document.getElementsByClassName('information_part_block')[0];
+                currNode = document.createElement('div');
+                currNode.className= "information_part_title";
+                currNode.innerText = `Square:`;
+                parNode.appendChild(currNode);
+
+                parNode = document.getElementsByClassName('information_part_block')[0];
+                currNode = document.createElement('span');
+                currNode.className= "information_part";
+                currNode.innerText = `${res.data.square} m2`;
+                parNode.appendChild(currNode);
+                //
+                parNode = document.getElementsByClassName('information_part_block')[0];
+                currNode = document.createElement('div');
+                currNode.className= "information_part_title costed";
+                currNode.innerText = `Cost:`;
+                parNode.appendChild(currNode);
+
+                parNode = document.getElementsByClassName('information_part_block')[0];
+                currNode = document.createElement('span');
+                currNode.className= "information_part costed";
+                currNode.innerText = `${res.data.cost}$`;
+                parNode.appendChild(currNode);
+
+                document.getElementsByClassName('full_description')[0].innerText = res.data.full_description;
+
+                // parNode = document.getElementsByClassName('advert_block_information_part')[0];
+                // currNode = document.createElement('button');
+                // currNode.className= "button_want_to_see";
+                // currNode.setAttribute('id', 'shit')
+                // currNode.innerText = `Want To See`;
+                // parNode.appendChild(currNode);
+
+                document.getElementsByClassName('main_picture')[0].src = res.data.photos[0];
+
+                for(let i = 0; i < res.data.photos.length; i++){
+                    parNode = document.getElementsByClassName('sub_picture_wrapper')[0];
+                    currNode = document.createElement('img');
+                    currNode.className= "sub_picture picture";
+                    currNode.setAttribute('alt', '');
+                    currNode.src = res.data.photos[i];
+                    parNode.appendChild(currNode);
+                }
+
+                // currNode.style.backgroundImage = `url(${someData[i + start].photos[0]})`;
+                // parNode.appendChild(currNode);
+                let arr = document.getElementsByClassName('sub_picture');
+                for(let i = 0; i < arr.length; i++){
+                    console.log(i)
+                    arr[i].onclick = function () {
+                        document.getElementsByClassName('main_picture')[0].src = arr[i].src;
+                    }
+                }
+
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+    // };
+
+    document.getElementsByClassName('button_want_to_see')[0].onclick = function(){
+        const tel = (document.getElementById('signup')) ? `${document.getElementById('explen_button').value}` : 0;
+        if(!document.getElementById('explen_button')){
+            alert('We get your request! Our agent will call you soon.')
+            axios.post('/for_review', {
+                id: `${window.location.href.substr(start+1)}`,
+                telephone: tel
+            })
+                .then(function(res){
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        }
+        else if(document.getElementById('explen_button').value.length > 5 && document.getElementById('explen_button').value.length < 14){
+            alert('We get your request! Our agent will call you soon.')
+            axios.post('/for_review', {
+                id: `${window.location.href.substr(start+1)}`,
+                telephone: `${tel}`
+            })
+                .then(function(res){
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        }
+        else{
+            alert('The field with telephone is required.')
+        }
+
+    };
+
+
+    function removeClick() {
+        axios.post('/remove_existing_advert', {
+            id: `${window.location.href.substr(start+1)}`
+        })
+            .then(function(res){
+                alert(res.data)
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+    }
+</script>
+<script src="js/pagination.js"> </script>
+<script src="js/navigation.js"> </script>
+</body>
+</html>

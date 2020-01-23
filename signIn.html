@@ -7,6 +7,7 @@
 	<title>Hashtag Blog</title>
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<link rel="stylesheet" type="text/css" href="css/makeAdvert.css">
+	<link rel="stylesheet" type="text/css" href="css/form.css">
 	<script src="./node_modules/axios/dist/axios.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/about.css">
 	<link href="https://fonts.googleapis.com/css?family=Cabin+Sketch&display=swap" rel="stylesheet">
@@ -19,13 +20,11 @@
 			<input type="checkbox" id="checkbox-menu">
 			<label for="checkbox-menu">
 			<ul class="menu touch">
-				<li><a class="logo" href="index.html">#hashtag</a></li>
-				<li><a href="#">About</a></li>
-				<li><a href="#">Find articles</a></li>
-				<li><a href="#">Contact us</a></li>
-				<li><a href="#">Join Us</a></li>
-				<li><a href="#">Something</a></li>
+				<li><a class="logo" href="http://localhost:8080/">#hashtag</a></li>
+				<li><a href="http://localhost:8080/about.html">About</a></li>
+				<li><a href="http://localhost:8080/findArticle.html">Find article</a></li>
 			</ul>
+			
 			<span class="toggle">☰</span>
 			</label>
 		</nav>
@@ -33,14 +32,13 @@
 	<div class="fiction"></div>
 <form class="login_form">
     <div class="form_part">
-    <label for="login">Login</label>
-    <input id="login" type="text" name="login" required>
+    <input id="login" type="text" name="login" placeholder="Login" required>
     </div>
 
     <div class="form_part">
-    <label for="pass">Password</label>
-    <input id="pass" type="password" name="pass" required>
+    <input id="pass" type="password" name="pass" placeholder="Password" required>
     </div>
+    <br>
     <input type="submit" value="Submit" class="submit_form_button">
 </form>
 
@@ -65,5 +63,6 @@
 </footer>
 
 <script src="js/signIn.js"></script>
+<script src="js/navigation.js"></script>
 </body>
 </html>

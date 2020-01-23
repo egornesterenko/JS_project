@@ -6,7 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Hashtag Blog</title>
 	<link rel="stylesheet" type="text/css" href="css/main.css">
-	<link rel="stylesheet" type="text/css" href="css/mainPage.css">
+    <link rel="stylesheet" type="text/css" href="css/mainPage.css">
 	<link rel="stylesheet" type="text/css" href="css/makeAdvert.css">
 	<link href="https://fonts.googleapis.com/css?family=Cabin+Sketch&display=swap" rel="stylesheet">
 	<link rel="shortcut icon" href="media/logo.png" type="image/x-icon">
@@ -30,26 +30,48 @@
 
 	</header>
 
-		<div class="fiction"></div>
-    <form action="/makeArticle.html" method="post" enctype="multipart/form-data" class="form">
-        <div class="form_part">
-            <input id="GET-name" type="text" name="name" placeholder="Article name">
-        </div>
+		<div class="gallery_block">
+    <div class="filter_block">
+        <label for="filter_topic">Topic</label>
+        <select class="filter" id="filter_topic">
+            <option></option>
+        </select>
+        <button class="filter_button">Show</button>
+    </div>
 
-        <div class="form_part">
-            <input id="topic" type="text" name="topic" placeholder="Topic">
-        </div>
+    <section class="pagination">
 
-        <div class="form_part">
-            <textarea id="full_desription" name="full_description" placeholder="Your article"></textarea>
-        </div>
+        <label>Go to Page <input type="text" name="page_input" class="page_input" value=""></label>
 
-        <div class="form_part">
-            <input id="file" type="file" name="photo" multiple="multiple" accept="image/*,image/jpeg">
-        </div>
-        <br>
-        <input type="submit" value="Submit" class="submit_form_button">
-    </form>
+        <a href="#" class="goto">&gt;&gt;</a>
+
+        <nav class="pagination_nav">
+            <a href="http://" class="previous">&lt; Prev</a>
+            <div class="page_nav">
+
+            </div>
+            <a href="http://" class="next">Next &gt;</a>
+        </nav>
+    </section>
+    <div class="card_container">
+
+    </div>
+    <section class="pagination">
+
+        <label>Go to Page <input type="text" name="page_input" class="page_input" value=""></label>
+
+        <a href="#" class="goto">&gt;&gt;</a>
+
+        <nav class="pagination_nav">
+            <a href="http://" class="previous">&lt; Prev</a>
+            <div class="page_nav">
+
+            </div>
+            <a href="http://" class="next">Next &gt;</a>
+        </nav>
+    </section>
+</div>
+
 	<footer class="footer">
     <div class="share_wrapper">
         <a class="share_link" href="#"
@@ -67,25 +89,7 @@
         <span class="footer_text text">Site by Yehor Nesterenko</span>
     </div>
 </footer>
-<script>
-	let formData = new FormData();
-	document.getElementsByTagName('form')[0].addEventListener("submit", function() {
-		// axios.post("./galery.html", {})
-		// 	.then(function(res){
-				const imagefile = document.getElementById('file');
-				formData.append("image", imagefile.files[0]);
-				console.log(formData);
-				axios.post('/makeArticle.html', formData, {
-					headers: {
-						'Content-Type': 'multipart/form-data'
-					}
-				// })
-			})
-			.catch(function (err) {
-				console.log(err);
-			});
-	});
-</script>
+<script src="js/pagination.js"> </script>
 <script src="js/navigation.js"> </script>
 </body>
 </html>

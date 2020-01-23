@@ -49,7 +49,7 @@ function checkAdmin(req, res, next) {
 
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
-		cb(null, 'media/preAdvPhotos')
+		cb(null, 'media/prePostPhoto')
 	},
 	filename: function (req, file, cb) {
 		let ext = file.originalname;
@@ -145,8 +145,9 @@ app.get('/*', function(req, res) {
 app.post('/loadUser', function(req, res){
 	if(req.session.userId === 'admin'){
 		res.send({
-				html: `<li class="menu_li"><a id="user_home_link" class="text" href="/adminAcc.html"><i class="fas fa-user"></i>&#160;Homepage</a></li>
-        			<li class="menu_li"><a id="login_logout" class="text" href="/logout"><i class="fas fa-sign-out-alt"></i>Logout</a></li>`,
+				html: `<li><a href="http://localhost:8080/makeArticle.html">Create article</a></li>
+					<li><a class="text" href="/adminAcc.html"><i class="fas fa-user"></i>&#160;Homepage</a></li>
+        			<li><a class="text" href="/logout"><i class="fas fa-sign-out-alt"></i>Logout</a></li>`,
 				id: req.session.userId
 			}
 		
@@ -154,16 +155,17 @@ app.post('/loadUser', function(req, res){
 	}
 	else if (!req.session.userId) {
 		res.send({
-			html: `<li class="menu_li"><a id="login_logout" href="/login"><i class="fas fa-sign-in-alt"></i>&#160;Login</a></li>
-             	<li class="menu_li"><a id="signup" href="/signup"><i class="fas fa-plus"></i>&#160;Register</a></li>`
+			html: `<li><a class="text" href="/login"><i class="fas fa-sign-in-alt"></i>&#160;Login</a></li>
+             	<li><a class="text" href="/signup"><i class="fas fa-plus"></i>&#160;Register</a></li>`
 			}
 			
 		)
 	}
 	else{
 		res.send({
-			html: `<li class="menu_li"><a id="user_home_link" class="text" href="/account"><i class="fas fa-user"></i>&#160;Homepage</a></li>
-        			<li class="menu_li"><a id="login_logout" class="text" href="/logout"><i class="fas fa-sign-out-alt"></i>Logout</a></li>`,
+			html: `<li><a href="http://localhost:8080/makeArticle.html">Create article</a></li>
+			<li><a class="text" href="/account"><i class="fas fa-user"></i>&#160;Homepage</a></li>
+        			<li><a class="text" href="/logout"><i class="fas fa-sign-out-alt"></i>Logout</a></li>`,
 			id: req.session.userId
 			}
 		
@@ -174,6 +176,51 @@ app.post('/loadUser', function(req, res){
 
 app.listen(8080);
 
+app.post('/findArticle', function(req, res){
+	let obj = JSON.parse(fs.readFileSync("JSON/articles.json"));
+	function filter_by_topic(value){
+		return value.type === req.body.type;
+	}
+	if(req.body.type){
+		obj = obj.filter(filter_by_topic);
+	}
+	res.send(obj);
+});
+
+
+app.post('/makeArticle.html', upload.array('photo', 12), function (req, res, next) {
+	let articles = JSON.parse(fs.readFileSync("JSON/articles.json"));
+	let photoNames = [];
+	req.files.forEach((item) => {photoNames.push(`../media/prePostPhoto/${item.filename}`)})
+	req.body.photos = photoNames;
+	//req.id = Date.now();
+	articles.push(req.body);
+	fs.writeFileSync('JSON/articles.json', JSON.stringify(articles), 'utf8');
+	// req.files - массив файлов `photos`
+	// req.body сохранит текстовые поля, если они будут
+});
+
+app.post('/add_article', function(req, res){
+	let obj = JSON.parse(fs.readFileSync("JSON/articles.json"));
+	// let preAdv = JSON.parse(fs.readFileSync("JSON/preadverts.json"));
+	const num = req.body.num;
+	let newPhotos = [];
+	preAdv[num].photos.forEach((item) => {
+		const oldPath = item.substr(3);
+		const newPath = item.replace('preAdvPhotos', 'AdvPhotos').substr(3);
+		newPhotos.push(item.replace('preAdvPhotos', 'AdvPhotos'));
+		let file = fs.readFileSync(oldPath);
+		fs.writeFileSync(newPath, file, 'utf8');
+		fs.unlinkSync(oldPath);
+	});
+	preAdv[num].id = String(Date.now());
+	preAdv[num].photos = newPhotos;
+	obj.push(preAdv[num]);
+	fs.writeFileSync('JSON/articles.json', JSON.stringify(obj), 'utf8');
+	preAdv.splice(req.body.num, 1);
+	fs.writeFileSync('JSON/preadverts.json', JSON.stringify(preAdv), 'utf8');
+	res.end('OK')
+});
 
 
 app.post('/signUp.html', function (req, res) {

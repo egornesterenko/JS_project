@@ -1,23 +1,19 @@
 .form{
-    border: 1px solid black;
-    padding: 3em 5em;
+    border: 1px solid grey;
     margin: 0 auto;
     width: 40%;
 }
 .login_form{
     border: 1px solid black;
-    padding: 2em 2.5em 3em 2.5em;
+    padding: 2em 2em 5em 2em;
     margin: 0 auto;
     width: 30%;
 }
 
 .form_part{
-    width: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
+    width: 80%;
+    padding: 0 10%;
     display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
     justify-content: space-between;
     margin: 1.5em 0;
 }
@@ -25,17 +21,37 @@
 
 #full_desription{
     height: 7em;
-    width: 20em;
 }
 
+
+input, textarea{
+    width: 100%;
+    border: 1px solid #DADADA;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 35px;
+    height: 30px;
+    font-size: 14px;
+    box-shadow:0 0 10px;
+    -webkit-box-shadow:0 0 10px;
+}
+
+input#file{
+    display: flex;
+    border: 0;
+    box-shadow: none;
+}
+
+
 .submit_form_button{
-    float: right;
+    padding-left: 0;
     height: 1.8em;
     font-size: 1.2em;
     border-radius: 4px;
     background-color: #81aaa7;
     color: white;
     cursor: pointer;
+    text-align: center;
 }
 
 .fiction{
@@ -45,16 +61,16 @@
 .form_note{
     color: #9fa4a7;
 }
-@media screen and (max-width: 630px){
+@media screen and (max-width: 720px){
     .form_part{
         display: block;
     }
     label{
         display: block;
     }
-    input{
-        width: 90%;
-        height: 3em;
+    input, textarea{
+        margin: 0 auto;
+        padding: 0;
     }
     #full_desription{
         width: 90%;
@@ -64,6 +80,7 @@
         width: 90%;
     }
     .login_form{
-        width: 70%;
+        width: 80%;
+        border: 0;
     }
 }

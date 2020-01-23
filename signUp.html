@@ -17,57 +17,49 @@
 <body>
 	<header>
 		<nav>
-			<input type="checkbox" id="checkbox-menu">
-			<label for="checkbox-menu">
-			<ul class="menu touch">
-				<li><a class="logo" href="index.html">#hashtag</a></li>
-				<li><a href="#">About</a></li>
-				<li><a href="#">Find articles</a></li>
-				<li><a href="#">Contact us</a></li>
-				<li><a href="#">Join Us</a></li>
-				<li><a href="#">Something</a></li>
-			</ul>
-			<span class="toggle">☰</span>
-			</label>
-		</nav>
+            <input type="checkbox" id="checkbox-menu">
+            <label for="checkbox-menu">
+            <ul class="menu touch">
+                <li><a class="logo" href="http://localhost:8080/">#hashtag</a></li>
+                <li><a href="http://localhost:8080/about.html">About</a></li>
+                <li><a href="http://localhost:8080/findArticle.html">Find article</a></li>
+            </ul>
+            
+            <span class="toggle">☰</span>
+            </label>
+        </nav>
 	</header>
 <div class="fiction"></div>
 <form class="form" action="/signUp.html" method="post">
     <div class="form_part">
-    <label for="firstname">Firstname*</label>
-    <input id="firstname" type="text" name="firtname" required>
+    <input id="firstname" type="text" name="firtname" placeholder="First name*" required>
     </div>
 
     <div class="form_part">
-    <label for="lastname">Lastname*</label>
-    <input id="lastname" type="text" name="lastname" required>
+    <input id="lastname" type="text" name="lastname" placeholder="Last name*" required>
     </div>
 
      <div class="form_part">
-    <label for="email">Email*</label>
-    <input id="email" type="email" name="email" required>
+    <input id="email" type="email" name="email" placeholder="Email*" required>
      </div>
 
     <div class="form_part">
-    <label for="telephone">Telephone*</label>
-    <input id="telephone" type="text" name="telephone" required>
+    <input id="telephone" type="text" name="telephone" placeholder="Telephone" required>
     </div>
 
     <div class="form_part">
-    <label for="pass">Password*</label>
-    <input id="pass" type="text" name="pass" required>
+    <input id="pass" type="text" name="pass" placeholder="Password*" required>
     </div>
 
     <div class="form_part">
-    <label for="checkpass">Confirm your password*</label>
-    <input id="checkpass" type="text" name="checkpass" required>
+    <input id="checkpass" type="text" name="checkpass" placeholder="Confirm password*" required>
     </div>
 
     <div class="form_part">
-    <label for="login">Login*</label>
-    <input id="login" type="text" name="login" required>
+    <input id="login" type="text" name="login" placeholder="Login*" required>
     </div>
     <span class="form_note">* fields are required</span>
+    <br>
     <input type="submit" value="Submit" class="submit_form_button">
 </form>
 <div id="error">
@@ -91,5 +83,6 @@
 </footer>
 
 <script src="js/signUp.js"></script>
+<script src="js/navigation.js"></script>
 </body>
 </html>

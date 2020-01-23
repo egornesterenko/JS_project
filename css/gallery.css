@@ -1,0 +1,32 @@
+/*@import "navigation.css";*/
+
+.gallery_block{
+    padding-top: 6em;
+}
+
+.filter_block{
+    margin: 0 6%;
+    border-bottom: 1px solid gray;
+}
+
+.filter{
+    margin: 0 2em 0 0;
+    background: transparent;
+    width: 150px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    height: 1.5em;
+}
+
+.filter_button{
+    display: inline-block;
+    padding: 0.3em 0.5em;
+    margin: 0 0.3em 0 0;
+    border-radius: 4px;
+    background-color: #81aaa7;
+    font-size: 1.1em;
+    cursor: pointer;
+}
+label{
+    font-size: 1.2em;
+}
