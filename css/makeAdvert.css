@@ -71,6 +71,7 @@ input#file{
     input, textarea{
         margin: 0 auto;
         padding: 0;
+        width: 100%;
     }
     #full_desription{
         width: 90%;
