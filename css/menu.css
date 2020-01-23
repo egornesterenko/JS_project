@@ -11,7 +11,7 @@ body, html {
 
 header {
     background-color: #FAEBD7;
-    opacity: 0.8;
+    opacity: 0.9;
     position: fixed;
     z-index: 1000;
     width: 100%

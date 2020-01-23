@@ -1,15 +1,95 @@
-/*input{
-background-image:url(../images/email.png);
-background-repeat:no-repeat;
-background-position:6px;
-border:1px solid #DADADA;
-margin-top:10px;
-margin-bottom:10px;
-padding-left:35px;
-width:310px;
-height:30px;
-font-size:14px;
-box-shadow:0 0 10px;
--webkit-box-shadow:0 0 10px;
+.form{
+    border: 1px solid grey;
+    margin: 0 auto;
+    width: 40%;
+    padding-bottom: 10%;
+}
+.login_form{
+    border: 1px solid black;
+    padding: 2em 2em 5em 2em;
+    margin: 0 auto;
+    width: 30%;
+}
 
-}*/
+.form_part{
+    width: 80%;
+    padding: 0 10%;
+    display: flex;
+    justify-content: space-between;
+    margin: 1.5em 0;
+}
+
+
+#full_desription{
+    height: 7em;
+}
+
+
+input, textarea{
+    width: 100%;
+    border: 1px solid #DADADA;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 35px;
+    height: 30px;
+    font-size: 14px;
+    box-shadow:0 0 10px;
+    -webkit-box-shadow:0 0 10px;
+}
+
+input#file{
+    display: flex;
+    border: 0;
+    box-shadow: none;
+}
+
+
+.submit_form_button{
+    padding-left: 0;
+    height: 1.8em;
+    font-size: 1.2em;
+    border-radius: 4px;
+    background-color: #81aaa7;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+}
+
+.fiction{
+    padding-top: 7em;
+}
+
+.form_note{
+    color: #9fa4a7;
+}
+
+.submit_form_button {
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+@media screen and (max-width: 920px){
+    .form_part{
+        display: block;
+    }
+    label{
+        display: block;
+    }
+    input, textarea{
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        padding: 5px 5px;
+        width: 90%;
+    }
+    .form{
+        padding: 3em 0.5em;
+        width: 90%;
+    }
+    .login_form{
+        width: 80%;
+        border: 0;
+    }
+}
