@@ -85,6 +85,8 @@ input#file{
         width: 90%;
     }
     .form{
+        border: 0;
+        box-shadow: none;
         padding: 3em 0.5em;
         width: 90%;
     }

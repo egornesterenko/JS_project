@@ -6,7 +6,6 @@ const app = express();
 const bodyParser = require('body-parser');
 const multer  = require('multer');
 
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'));
@@ -47,9 +46,11 @@ function checkAdmin(req, res, next) {
 }
 
 
+let userID;
+
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
-		cb(null, 'media/prePostPhoto')
+		cb(null, 'media/PostPhoto')
 	},
 	filename: function (req, file, cb) {
 		let ext = file.originalname;
@@ -98,6 +99,7 @@ app.get('/logout', checkLoginBefore, (req, res) => {
 		// if(err){
 		//
 		// }
+		userID = 0;
 		res.clearCookie('sid');
 		res.redirect('/')
 	})
@@ -131,6 +133,7 @@ app.get('/account', checkLoginBefore, (req, res) => {
 
 app.get('/login', checkLoginAfter, (req, res) => {
 	res.sendFile('./signIn.html', { root: '.' })
+
 });
 
 app.get('/signup', checkLoginAfter, (req, res) => {
@@ -158,7 +161,6 @@ app.post('/loadUser', function(req, res){
 			html: `<li><a class="text" href="/login"><i class="fas fa-sign-in-alt"></i>&#160;Login</a></li>
              	<li><a class="text" href="/signup"><i class="fas fa-plus"></i>&#160;Register</a></li>`
 			}
-			
 		)
 	}
 	else{
@@ -168,7 +170,6 @@ app.post('/loadUser', function(req, res){
         			<li><a class="text" href="/logout"><i class="fas fa-sign-out-alt"></i>Logout</a></li>`,
 			id: req.session.userId
 			}
-		
 		)
 	}
 });
@@ -189,41 +190,21 @@ app.post('/findArticle', function(req, res){
 
 
 app.post('/makeArticle.html', upload.array('photo', 12), function (req, res, next) {
-	let articles = JSON.parse(fs.readFileSync("JSON/articles.json"));
+	let article = JSON.parse(fs.readFileSync("JSON/articles.json"));
 	let photoNames = [];
-	req.files.forEach((item) => {photoNames.push(`../media/prePostPhoto/${item.filename}`)})
+	req.files.forEach((item) => {photoNames.push(`../media/PostPhoto/${item.filename}`)})
 	req.body.photos = photoNames;
-	//req.id = Date.now();
-	articles.push(req.body);
-	fs.writeFileSync('JSON/articles.json', JSON.stringify(articles), 'utf8');
-	// req.files - массив файлов `photos`
-	// req.body сохранит текстовые поля, если они будут
-});
 
-app.post('/add_article', function(req, res){
-	let obj = JSON.parse(fs.readFileSync("JSON/articles.json"));
-	// let preAdv = JSON.parse(fs.readFileSync("JSON/preadverts.json"));
-	const num = req.body.num;
-	let newPhotos = [];
-	preAdv[num].photos.forEach((item) => {
-		const oldPath = item.substr(3);
-		const newPath = item.replace('preAdvPhotos', 'AdvPhotos').substr(3);
-		newPhotos.push(item.replace('preAdvPhotos', 'AdvPhotos'));
-		let file = fs.readFileSync(oldPath);
-		fs.writeFileSync(newPath, file, 'utf8');
-		fs.unlinkSync(oldPath);
-	});
-	preAdv[num].id = String(Date.now());
-	preAdv[num].photos = newPhotos;
-	obj.push(preAdv[num]);
-	fs.writeFileSync('JSON/articles.json', JSON.stringify(obj), 'utf8');
-	preAdv.splice(req.body.num, 1);
-	fs.writeFileSync('JSON/preadverts.json', JSON.stringify(preAdv), 'utf8');
-	res.end('OK')
+	article.push(req.body);
+	Object.assign(article[article.length-1], {userId: `${userID}`});
+	fs.writeFileSync('JSON/articles.json', JSON.stringify(article), 'utf8');
+
+
 });
 
 
 app.post('/signUp.html', function (req, res) {
+
 	let users = JSON.parse(fs.readFileSync("JSON/users.json"));
 	let out = 0;
 	users.forEach((item) => {
@@ -245,6 +226,7 @@ app.post('/signUp.html', function (req, res) {
 		req.body.userId = newId;
 		users.push(req.body);
 		req.session.userId = newId;
+		userID = req.session.userId;
 		res.end('so sad')
 		fs.writeFileSync('JSON/users.json', JSON.stringify(users), 'utf8');
 	}
@@ -261,6 +243,7 @@ app.post('/signIn.html', function (req, res) {
 			if(item.pass === req.body.password || item.password === req.body.password){
 				sign++;
 				req.session.userId = item.userId;
+				userID = req.session.userId;
 				res.end("we are winners");
 			}
 		}
