@@ -93,6 +93,20 @@ app.post('/get_user_articles', (req, res) => {
 	res.send(arr)
 });
 
+app.post('/get_user_by_article', (req, res) => {
+	let users = JSON.parse(fs.readFileSync("JSON/users.json"));
+
+	let arr = [];
+	
+	users.forEach((item) => {
+		arr.push(item);
+	});
+	res.send(arr)
+
+	//console.log(req.session);
+	
+});
+
 
 app.get('/logout', checkLoginBefore, (req, res) => {
 	req.session.destroy(err => {
@@ -106,7 +120,7 @@ app.get('/logout', checkLoginBefore, (req, res) => {
 });
 
 app.get('/gallery*', (req, res) => {
-	res.sendFile('galery.html', { root: '.' })
+	res.sendFile('findArticle.html', { root: '.' })
 });
 
 app.get('/', (req, res) => {
@@ -120,7 +134,7 @@ app.get('/article*', (req, res) => {
 app.post('/article', (req, res) => {
 	let obj = JSON.parse(fs.readFileSync("JSON/articles.json"));
 	obj.forEach((item) => {
-		if(item.id === req.body.id){
+		if(item.articleId === req.body.id){
 			res.send(item)
 		}
 	});
@@ -177,7 +191,7 @@ app.post('/loadUser', function(req, res){
 
 app.listen(8080);
 
-app.post('/findArticle', function(req, res){
+app.post('/gallery', function(req, res){
 	let obj = JSON.parse(fs.readFileSync("JSON/articles.json"));
 	function filter_by_topic(value){
 		return value.type === req.body.type;
@@ -194,9 +208,11 @@ app.post('/makeArticle.html', upload.array('photo', 12), function (req, res, nex
 	let photoNames = [];
 	req.files.forEach((item) => {photoNames.push(`../media/PostPhoto/${item.filename}`)})
 	req.body.photos = photoNames;
-
+	let d = Date(Date.now()); 
 	article.push(req.body);
 	Object.assign(article[article.length-1], {userId: `${userID}`});
+	Object.assign(article[article.length-1], {articleId: `${Math.random().toString(36).substr(2, 9)}`});
+	Object.assign(article[article.length-1], {time: `${d.toString()  }`});
 	fs.writeFileSync('JSON/articles.json', JSON.stringify(article), 'utf8');
 
 

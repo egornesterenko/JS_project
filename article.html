@@ -8,6 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/mainPage.css">
 	<link rel="stylesheet" type="text/css" href="css/form.css">
+    <link rel="stylesheet" type="text/css" href="css/article.css">
 	<link href="https://fonts.googleapis.com/css?family=Cabin+Sketch&display=swap" rel="stylesheet">
 	<link rel="shortcut icon" href="media/logo.png" type="image/x-icon">
 	<script src="https://kit.fontawesome.com/8c5f8983b2.js" crossorigin="anonymous"></script>
@@ -31,25 +32,26 @@
 	</header>
 
 <div class="fiction"></div>
-<div class="advert_block">
-    <div class="advert_block_pictures">
-        <div class="main_picture_wrapper">
-            <img class="main_picture picture" src="#" alt="">
+    <div class="container_article">
+        <div class="captain-topic">
+            <h2></h2>
         </div>
-        <div class="sub_picture_wrapper">
-        </div>
-    </div>
-    <div class="advert_block_information">
-        <div class="advert_block_information_part">
-        </div>
-        <!--<label for="explen_button" class="explen_text text">Enter your phone, and we will call you</label>-->
-        <!--<input id="explen_button" type="text">-->
-        <div class="button_advert button_want_to_see">Want to see!</div>
-    </div>
-</div>
-<div class="full_description text">
+        <div class="inside-container">
+            <img  class="photo-article" src="#">
+            <div class="about-us-text">
+                <p class="captain-article-name"></p>
+                <hr>
+                <p class="text-article"></p>
+                <div class="time-of-post">
+                    <p></p>
+                </div>
 
-</div>
+                <div class="userPage">
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </div>
 
 	<footer class="footer">
     <div class="share_wrapper">
@@ -123,103 +125,39 @@
 
     // window.onload = function() {
         const start = window.location.href.lastIndexOf('=');
-        axios.post(`/advert`, {
+        axios.post(`/article`, {
             // params: {
                 id: `${window.location.href.substr(start+1)}`
             // }
         })
             .then(function(res){
-                console.log(res.data);
-                let parNode = document.getElementsByClassName('advert_block_information_part')[0];
-                let currNode = document.createElement('div');
-                currNode.className= "information_part_block";
-                parNode.appendChild(currNode);
+                
+                if (res.data.photos[0] == undefined) {
+                    document.getElementsByClassName('photo-article')[0].style.display = 'none';
+                    document.getElementsByClassName('inside-container')[0].style.display = 'flex'
+                    document.getElementsByClassName('inside-container')[0].style.justifyContent = 'center';
 
-                parNode = document.getElementsByClassName('information_part_block')[0];
-                currNode = document.createElement('div');
-                currNode.className= "information_part_title";
-                currNode.innerText = `Type:`;
-                parNode.appendChild(currNode);
+                } 
+                
+                else {
+                    document.getElementsByClassName('photo-article')[0].src = res.data.photos[0];
+                }
+                document.getElementsByClassName('captain-topic')[0].querySelector('h2').innerText = res.data.topic;
+                document.getElementsByClassName('captain-article-name')[0].innerText = res.data.name;
+                document.getElementsByClassName('text-article')[0].innerText = res.data.full_description;
+                document.getElementsByClassName('time-of-post')[0].querySelector('p').innerText = res.data.time; 
 
-                parNode = document.getElementsByClassName('information_part_block')[0];
-                currNode = document.createElement('span');
-                currNode.className= "information_part";
-                currNode.innerText = `${res.data.type}`;
-                parNode.appendChild(currNode);
-                //
-                parNode = document.getElementsByClassName('information_part_block')[0];
-                currNode = document.createElement('div');
-                currNode.className= "information_part_title";
-                currNode.innerText = `City:`;
-                parNode.appendChild(currNode);
+                let ui = res.data.userId;
 
-                parNode = document.getElementsByClassName('information_part_block')[0];
-                currNode = document.createElement('span');
-                currNode.className= "information_part";
-                currNode.innerText = `${res.data.city}`;
-                parNode.appendChild(currNode);
-                //
-                parNode = document.getElementsByClassName('information_part_block')[0];
-                currNode = document.createElement('div');
-                currNode.className= "information_part_title";
-                currNode.innerText = `District:`;
-                parNode.appendChild(currNode);
 
-                parNode = document.getElementsByClassName('information_part_block')[0];
-                currNode = document.createElement('span');
-                currNode.className= "information_part";
-                currNode.innerText = `${res.data.district}`;
-                parNode.appendChild(currNode);
-                //
-                parNode = document.getElementsByClassName('information_part_block')[0];
-                currNode = document.createElement('div');
-                currNode.className= "information_part_title";
-                currNode.innerText = `Address:`;
-                parNode.appendChild(currNode);
-
-                parNode = document.getElementsByClassName('information_part_block')[0];
-                currNode = document.createElement('span');
-                currNode.className= "information_part";
-                currNode.innerText = `${res.data.address}`;
-                parNode.appendChild(currNode);
-                //
-                parNode = document.getElementsByClassName('information_part_block')[0];
-                currNode = document.createElement('div');
-                currNode.className= "information_part_title";
-                currNode.innerText = `Number of rooms:`;
-                parNode.appendChild(currNode);
-
-                parNode = document.getElementsByClassName('information_part_block')[0];
-                currNode = document.createElement('span');
-                currNode.className= "information_part";
-                currNode.innerText = `${res.data.rooms}`;
-                parNode.appendChild(currNode);
-                //
-                parNode = document.getElementsByClassName('information_part_block')[0];
-                currNode = document.createElement('div');
-                currNode.className= "information_part_title";
-                currNode.innerText = `Square:`;
-                parNode.appendChild(currNode);
-
-                parNode = document.getElementsByClassName('information_part_block')[0];
-                currNode = document.createElement('span');
-                currNode.className= "information_part";
-                currNode.innerText = `${res.data.square} m2`;
-                parNode.appendChild(currNode);
-                //
-                parNode = document.getElementsByClassName('information_part_block')[0];
-                currNode = document.createElement('div');
-                currNode.className= "information_part_title costed";
-                currNode.innerText = `Cost:`;
-                parNode.appendChild(currNode);
-
-                parNode = document.getElementsByClassName('information_part_block')[0];
-                currNode = document.createElement('span');
-                currNode.className= "information_part costed";
-                currNode.innerText = `${res.data.cost}$`;
-                parNode.appendChild(currNode);
-
-                document.getElementsByClassName('full_description')[0].innerText = res.data.full_description;
+                axios.post('/get_user_by_article').then(function(res) {
+                    res.data.forEach((item) => {
+                        if (ui == item.userId) {
+                            document.getElementsByClassName('userPage')[0].querySelector('p').innerText = 'Post by ' + item.firtname + ' ' + item.lastname;
+                        }
+                    }
+                    //document.getElementsByClassName('userPage')[0].querySelector('p').innerText = res.data.firtname;
+                )})
 
                 // parNode = document.getElementsByClassName('advert_block_information_part')[0];
                 // currNode = document.createElement('button');
@@ -228,64 +166,13 @@
                 // currNode.innerText = `Want To See`;
                 // parNode.appendChild(currNode);
 
-                document.getElementsByClassName('main_picture')[0].src = res.data.photos[0];
-
-                for(let i = 0; i < res.data.photos.length; i++){
-                    parNode = document.getElementsByClassName('sub_picture_wrapper')[0];
-                    currNode = document.createElement('img');
-                    currNode.className= "sub_picture picture";
-                    currNode.setAttribute('alt', '');
-                    currNode.src = res.data.photos[i];
-                    parNode.appendChild(currNode);
-                }
-
-                // currNode.style.backgroundImage = `url(${someData[i + start].photos[0]})`;
-                // parNode.appendChild(currNode);
-                let arr = document.getElementsByClassName('sub_picture');
-                for(let i = 0; i < arr.length; i++){
-                    console.log(i)
-                    arr[i].onclick = function () {
-                        document.getElementsByClassName('main_picture')[0].src = arr[i].src;
-                    }
-                }
-
             })
             .catch(function (err) {
                 console.log(err);
             });
     // };
 
-    document.getElementsByClassName('button_want_to_see')[0].onclick = function(){
-        const tel = (document.getElementById('signup')) ? `${document.getElementById('explen_button').value}` : 0;
-        if(!document.getElementById('explen_button')){
-            alert('We get your request! Our agent will call you soon.')
-            axios.post('/for_review', {
-                id: `${window.location.href.substr(start+1)}`,
-                telephone: tel
-            })
-                .then(function(res){
-                })
-                .catch(function (err) {
-                    console.log(err);
-                });
-        }
-        else if(document.getElementById('explen_button').value.length > 5 && document.getElementById('explen_button').value.length < 14){
-            alert('We get your request! Our agent will call you soon.')
-            axios.post('/for_review', {
-                id: `${window.location.href.substr(start+1)}`,
-                telephone: `${tel}`
-            })
-                .then(function(res){
-                })
-                .catch(function (err) {
-                    console.log(err);
-                });
-        }
-        else{
-            alert('The field with telephone is required.')
-        }
 
-    };
 
 
     function removeClick() {
@@ -300,7 +187,6 @@
             });
     }
 </script>
-<script src="js/pagination.js"> </script>
 <script src="js/navigation.js"> </script>
 </body>
 </html>

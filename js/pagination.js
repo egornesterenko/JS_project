@@ -186,16 +186,15 @@ function build_results(someData) {
 		parNode = document.getElementsByClassName('card_description')[i]
 		currNode = document.createElement('div');
 		currNode.className= "card_id";
-		currNode.innerHTML = `ID: ${someData[i + start].id}`;
+		currNode.innerHTML = `${someData[i + start].full_description}`;
 		parNode.appendChild(currNode);
 	}
 	for(let i = 0; i < document.getElementsByClassName('card').length; i++){
-		console.log('fuck')
 		document.getElementsByClassName('card')[i].onclick = function(){
-			let start = document.getElementsByClassName('card_id')[i].innerHTML.lastIndexOf(' ');
-			let id = document.getElementsByClassName('card_id')[i].innerHTML.substr(start+1);
-			window.location.href = `http://localhost:8080/article?articleId=${id}`
+			window.location.href = `http://localhost:8080/article?articleId=${someData[i].articleId}`
 		}
+
+
 	}
 }
 
@@ -222,14 +221,14 @@ if(search_word){
 		});
 }
 else{
-	axios.post("/findArticle", {
+	axios.post("/gallery", {
 		type: param
 	})
 		.then(function(res){
 			let set = new Set();
 			console.log(res.data)
 			res.data.forEach((obj) => {
-				set.add(obj.topic)
+				set.add(obj)
 			})
 			for(let item of set){
 				let parNode  = document.getElementById('filter_topic');
@@ -261,37 +260,37 @@ else{
 // 		});
 // };
 
-document.getElementById('filter_topic').onchange = function(){
-	axios.post("/findArticle", {})
-		.then(function(res){
-			let set = new Set();
-			res.data = res.data.filter(filter_by_topic)
-			res.data.forEach((obj) => {
-				set.add(obj.district)
-			})
+// document.getElementById('filter_topic').onchange = function(){
+// 	axios.post("/gallery", {})
+// 		.then(function(res){
+// 			let set = new Set();
+// 			res.data = res.data.filter(filter_by_topic)
+// 			res.data.forEach((obj) => {
+// 				set.add(obj.topic)
+// 			})
 			
-			for(let item of set){
-				let parNode  = document.getElementById('filter_topic');
-				let currNode = document.createElement('option');
-				currNode.innerText = item;
-				currNode.className= "filter_topic_option";
-				parNode.appendChild(currNode);
-			}
-		})
-		.catch(function (err) {
-			console.log(err);
-		});
-};
+// 			for(let item of set){
+// 				let parNode  = document.getElementById('filter_topic');
+// 				let currNode = document.createElement('option');
+// 				currNode.innerText = item;
+// 				currNode.className= "filter_topic_option";
+				
+// 			}
+// 		})
+// 		.catch(function (err) {
+// 			console.log(err);
+// 		});
+// };
 
-document.getElementsByClassName("filter_button")[0].onclick = function(){
-	axios.post("/findArticle", {})
-		.then(function(res){
-			let filteredData = filter(res.data, document.getElementById('filter_topic').value);
-			changeConfigs(filteredData);
-			init(filteredData);
-		})
-		.catch(function (err) {
-			console.log(err);
-		});
-}
+// document.getElementsByClassName("filter_button")[0].onclick = function(){
+// 	axios.post("/gallery", {})
+// 		.then(function(res){
+// 			let filteredData = filter(res.data, document.getElementById('filter_topic').value);
+// 			changeConfigs(filteredData);
+// 			init(filteredData);
+// 		})
+// 		.catch(function (err) {
+// 			console.log(err);
+// 		});
+// }
 
