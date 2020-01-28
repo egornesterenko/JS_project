@@ -1,6 +1,6 @@
 
 window.addEventListener('load', function(){
-	axios.post('/get_user_adverts', {})
+	axios.post('/get_user_articles', {})
 		.then(function(res){
 			if(res.data){
 				for(let i = 0; i < res.data.length; i++){
@@ -9,12 +9,14 @@ window.addEventListener('load', function(){
 					let currNode = document.createElement('div');
 					currNode.className= "card";
 					parNode.appendChild(currNode);
+
 					//
 					parNode = document.getElementsByClassName('card')[i]
 					currNode = document.createElement('div');
 					currNode.className= "card_photo";
 					currNode.style.backgroundImage = `url(${res.data[i].photos[0]})`;
 					parNode.appendChild(currNode);
+
 					//
 					currNode = document.createElement('div');
 					currNode.className= "card_description";
@@ -24,91 +26,59 @@ window.addEventListener('load', function(){
 					currNode = document.createElement('div');
 					currNode.className= "card_photo_cover";
 					parNode.appendChild(currNode);
+
+
 					//
 					parNode = document.getElementsByClassName('card_photo_cover')[i]
 					currNode = document.createElement('span');
-					currNode.className= "cost";
-					currNode.innerHTML = res.data[i].cost + '$';
+					currNode.className= "topic";
+					currNode.innerHTML = res.data[i].topic;
 					parNode.appendChild(currNode);
-					//
-					parNode = document.getElementsByClassName('card_description')[i]
-					currNode = document.createElement('div');
-					currNode.className= "short_description text";
-					currNode.innerHTML = res.data[i].city + ', ' + res.data[i].district + ' district, ' + res.data[i].address + ', ' + res.data[i].rooms + ' rooms, ' + res.data[i].square + ' m2';
-					parNode.appendChild(currNode);
-					//
-					parNode = document.getElementsByClassName('card_description')[i]
-					currNode = document.createElement('div');
-					currNode.className= "card_id";
-					currNode.innerHTML = `ID: ${res.data[i].id}`;
-					parNode.appendChild(currNode);
-				}
-			}
-			
-		})
-		.catch(function(err){
-			console.log(err);
-		});
-	axios.post('/get_user_reviews', {})
-		.then(function(res){
-			if(res.data){
-				const start = document.getElementsByClassName('card').length;
-				console.log(start)
-				for(let i = start; i < res.data.length + start; i++){
-					//
-					let parNode  = document.getElementsByClassName('account_reviews_wrapper')[0];
-					let currNode = document.createElement('div');
-					currNode.className= "card";
-					parNode.appendChild(currNode);
-					//
-					parNode = document.getElementsByClassName('card')[i]
-					currNode = document.createElement('div');
-					currNode.className= "card_photo";
-					currNode.style.backgroundImage = `url(${res.data[i - start].photos[0]})`;
-					parNode.appendChild(currNode);
-					//
-					currNode = document.createElement('div');
-					currNode.className= "card_description";
-					parNode.appendChild(currNode);
-					//
-					parNode = document.getElementsByClassName('card_photo')[i]
-					currNode = document.createElement('div');
-					currNode.className= "card_photo_cover";
-					parNode.appendChild(currNode);
+
+
 					//
 					parNode = document.getElementsByClassName('card_photo_cover')[i]
-					currNode = document.createElement('span');
-					currNode.className= "cost";
-					currNode.innerHTML = res.data[i - start].cost + '$';
+					currNode = document.createElement('button');
+					currNode.className= "button_remove_article";
+					currNode.innerText = 'remove';
 					parNode.appendChild(currNode);
 					//
+					document.getElementsByClassName('card_description')[i].style.width = '100%';
 					parNode = document.getElementsByClassName('card_description')[i]
 					currNode = document.createElement('div');
 					currNode.className= "short_description text";
-					currNode.innerHTML = res.data[i - start].city + ', ' + res.data[i - start].district + ' district, ' + res.data[i - start].address + ', ' + res.data[i - start].rooms + ' rooms, ' + res.data[i - start].square + ' m2';
+					currNode.innerHTML = res.data[i].full_description
 					parNode.appendChild(currNode);
-					//
-					parNode = document.getElementsByClassName('card_description')[i]
-					currNode = document.createElement('div');
-					currNode.className= "card_id";
-					currNode.innerHTML = `ID: ${res.data[i - start].id}`;
-					parNode.appendChild(currNode);
+
+				
 				}
 			}
+
 			
-		})
-		.catch(function(err){
-			console.log(err);
-		});
-	
-	const cards = document.getElementsByClassName('card').length;
-	for(let i = 0; i < cards; i++){
-		document.getElementsByClassName('card')[i].onclick = function(){
-			let start = document.getElementsByClassName('card_id')[i].innerHTML.lastIndexOf('%')
-			let id = document.getElementsByClassName('card_id')[i].innerHTML.substr(start)
-			window.location.href = `http://localhost:8080/advert?advertId=${id}`
+		for(let i = 0; i < document.getElementsByClassName('card').length; i++){
+			document.getElementsByClassName('card')[i].getElementsByClassName('card_description')[0].onclick = function(){
+			window.location.href = `http://localhost:8080/article?articleId=${res.data[i].articleId}`
 		}
-	}
+
+		document.getElementsByClassName('button_remove_article')[i].onclick = function(){
+			axios.post('/remove_article', {
+				num: i
+			})
+				.then(function(res){
+					let parentElem = document.getElementsByClassName('account_adverts_wrapper')[0]
+					let elem = document.getElementsByClassName('card')[i]
+					parentElem.removeChild(elem)
+				})
+				.catch(function(err){
+					console.log(err);
+				});
+		};}						
+		})
+		.catch(function(err){
+			console.log(err);
+		});
+
+		
 });
 
 axios.post('/get_user_acc',{})
@@ -116,7 +86,7 @@ axios.post('/get_user_acc',{})
 		let parNode  = document.getElementsByClassName('account_info')[0];
 		let currNode = document.createElement('div');
 		currNode.className= "account_firstname text account_info_part";
-		currNode.innerHTML = res.data.firstname;
+		currNode.innerHTML = res.data.firtname;
 		parNode.appendChild(currNode);
 		//
 		currNode = document.createElement('div');
@@ -137,3 +107,5 @@ axios.post('/get_user_acc',{})
 	.catch(function(err){
 		console.log(err);
 	});
+
+

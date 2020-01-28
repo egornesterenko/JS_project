@@ -5,8 +5,11 @@
 }
 
 .filter_block{
-    margin: 0 6%;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
     border-bottom: 1px solid gray;
+    font-family: "Montserrat";
 }
 
 .filter{
@@ -27,6 +30,12 @@
     font-size: 1.1em;
     cursor: pointer;
 }
-label{
+
+.pagination_page {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+ label{
+    font-family: "Montserrat";
     font-size: 1.2em;
 }

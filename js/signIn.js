@@ -21,7 +21,7 @@ form.addEventListener("submit", function (event) {
                     document.getElementById('error').innerHTML = response.data;
                 }
                 else{
-                    window.location.href = "http://localhost:8080/"
+                    window.location.href = "http://localhost:8080/account"
                 }
                 console.log(response);
                 

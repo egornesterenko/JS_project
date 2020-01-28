@@ -1,0 +1,65 @@
+.feedback_wrapper{
+}
+.feedback_block{
+    padding: 1.5em;
+    margin: 2em;
+    border: 1px solid black;
+}
+.feedback_username{
+    font-size: 1.6em;
+}
+
+.feedback_text{
+    font-size: 1.3em;
+    padding: 1em;
+}
+
+.button_remove_feedback{
+    margin-top: 1em;
+    display: inline-block;
+    padding: 0.3em 0.5em;
+    border-radius: 4px;
+    background-color: #81aaa7;
+    cursor: pointer;
+}
+.not_user_text{
+    /*display: inline-block;*/
+    width: 17.4em;
+    margin: auto;
+    color: #cccccc;
+    font-size: 1.7em;
+}
+
+.fiction{
+    padding-top: 5em;
+}
+
+.button{
+    display: inline-block;
+    padding: 0.3em 0.5em;
+    margin: 0 0.3em 0 0;
+    border-radius: 4px;
+    background-color: #81aaa7;
+    font-size: 1.27em;
+    cursor: pointer;
+    position: relative;
+}
+.leave_feedback_text{
+    display: block;
+}
+.leave_feedback_block{
+     margin: 2em;
+ }
+#leave_feedback{
+    display: block;
+    margin: 1em;
+    width: 70%;
+    height: 4em;
+}
+@media screen and (max-width: 530px){
+    .not_user_text{
+        /*display: inline-block;*/
+        color: #cccccc;
+        font-size: 1em;
+    }
+}

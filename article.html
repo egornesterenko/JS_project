@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="css/mainPage.css">
 	<link rel="stylesheet" type="text/css" href="css/form.css">
     <link rel="stylesheet" type="text/css" href="css/article.css">
+    <link rel="stylesheet" type="text/css" href="css/feedback.css">
 	<link href="https://fonts.googleapis.com/css?family=Cabin+Sketch&display=swap" rel="stylesheet">
 	<link rel="shortcut icon" href="media/logo.png" type="image/x-icon">
 	<script src="https://kit.fontawesome.com/8c5f8983b2.js" crossorigin="anonymous"></script>
@@ -22,8 +23,7 @@
 			<ul class="menu touch">
 				<li><a class="logo" href="http://localhost:8080/">#hashtag</a></li>
 				<li><a href="http://localhost:8080/about.html">About</a></li>
-				<li><a href="http://localhost:8080/findArticle.html">Find article</a></li>
-			</ul>
+                <li><a href="http://localhost:8080/gallery">Find article</a></li>			</ul>
 			
 			<span class="toggle">☰</span>
 			</label>
@@ -52,17 +52,22 @@
             </div>
         </div>
     </div>
+    <div class="fiction"></div>
+<section class="feedback_wrapper">
+<div class="leave_feedback_block">
 
-	<footer class="footer">
+</div>
+</section>
+    <footer class="footer">
     <div class="share_wrapper">
         <a class="share_link" href="#"
            onclick="popup(`http://www.facebook.com/share.php?u=https://${shareUrl}`)">
             <i class="fab fa-facebook"></i></a>
         <a class="share_link" href="#"
-           onclick="popup('https://twitter.com/intent/tweet?&status='+document.title+'%20Agency%20––%20The%20way%20to%20your%20home++%28'+shareUrl+'%29&hashtags=realestate,ketler,ketleragency')">
+           onclick="popup('https://twitter.com/intent/tweet?&status='+document.title+'%20––%20Create%20your%20blog++%28'+shareUrl+'%29&hashtags=realestate,ketler,ketleragency')">
             <i class="fab fa-twitter"></i></a>
         <a class="share_link" href="#"
-           onclick="popup(`https://telegram.me/share/url?url=${shareUrl}&text=Ketler%20Agency%20–%20The%20way%20to%20your%20home`)">
+           onclick="popup(`https://telegram.me/share/url?url=${shareUrl}&text=Hashtag%20Blog%20–%20Create%20smth%20by%20yourself`)">
             <i class="fab fa-telegram"></i></a>
     </div>
     <div class="footer_text_block text">
@@ -99,36 +104,18 @@
                         currNode.setAttribute('type', 'text');
                         parNode.appendChild(currNode);
                     }
-
-                    // currNode = document.createElement('input');
-                    // currNode.className= "button_want_to_see";
-                    // currNode.innerText = `Want to see!`;
-                    // parNode.appendChild(currNode);
                 }
             })
             .catch(function (err) {
                 console.log(err);
             });
 
-        // document.getElementById('button_remove').onclick = function(){
-        //  axios.post('/remove_existing_advert', {
-        //      id: `${window.location.href.substr(start+1)}`
-        //  })
-        //      .then(function(res){
-        //          alert(res.data)
-        //      })
-        //      .catch(function (err) {
-        //          console.log(err);
-        //      });
-        // }
+       
     })
 
-    // window.onload = function() {
         const start = window.location.href.lastIndexOf('=');
         axios.post(`/article`, {
-            // params: {
                 id: `${window.location.href.substr(start+1)}`
-            // }
         })
             .then(function(res){
                 
@@ -156,37 +143,16 @@
                             document.getElementsByClassName('userPage')[0].querySelector('p').innerText = 'Post by ' + item.firtname + ' ' + item.lastname;
                         }
                     }
-                    //document.getElementsByClassName('userPage')[0].querySelector('p').innerText = res.data.firtname;
                 )})
 
-                // parNode = document.getElementsByClassName('advert_block_information_part')[0];
-                // currNode = document.createElement('button');
-                // currNode.className= "button_want_to_see";
-                // currNode.setAttribute('id', 'shit')
-                // currNode.innerText = `Want To See`;
-                // parNode.appendChild(currNode);
-
             })
             .catch(function (err) {
                 console.log(err);
             });
-    // };
 
 
-
-
-    function removeClick() {
-        axios.post('/remove_existing_advert', {
-            id: `${window.location.href.substr(start+1)}`
-        })
-            .then(function(res){
-                alert(res.data)
-            })
-            .catch(function (err) {
-                console.log(err);
-            });
-    }
 </script>
 <script src="js/navigation.js"> </script>
+<script src="js/feedback.js"> </script>
 </body>
 </html>

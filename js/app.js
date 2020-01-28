@@ -67,10 +67,6 @@ app.get('/account', checkLoginBefore, (req, res) => {
 	res.sendFile('account.html', { root: '.' })
 });
 
-app.get('/adminAcc.html', checkAdmin, (req, res) => {
-	res.sendFile('adminAcc.html', { root: '.' })
-});
-
 app.post('/get_user_acc', (req, res) => {
 	let users = JSON.parse(fs.readFileSync("JSON/users.json"));
 	
@@ -79,6 +75,11 @@ app.post('/get_user_acc', (req, res) => {
 			res.send(item)
 		}
 	});
+});
+
+app.post('/get_feedback', (req, res) => {
+	res.send(JSON.parse(fs.readFileSync("JSON/feedback.json")));
+	
 });
 
 app.post('/get_user_articles', (req, res) => {
@@ -102,9 +103,6 @@ app.post('/get_user_by_article', (req, res) => {
 		arr.push(item);
 	});
 	res.send(arr)
-
-	//console.log(req.session);
-	
 });
 
 
@@ -160,17 +158,8 @@ app.get('/*', function(req, res) {
 
 
 app.post('/loadUser', function(req, res){
-	if(req.session.userId === 'admin'){
-		res.send({
-				html: `<li><a href="http://localhost:8080/makeArticle.html">Create article</a></li>
-					<li><a class="text" href="/adminAcc.html"><i class="fas fa-user"></i>&#160;Homepage</a></li>
-        			<li><a class="text" href="/logout"><i class="fas fa-sign-out-alt"></i>Logout</a></li>`,
-				id: req.session.userId
-			}
-		
-		)
-	}
-	else if (!req.session.userId) {
+
+	if (!req.session.userId) {
 		res.send({
 			html: `<li><a class="text" href="/login"><i class="fas fa-sign-in-alt"></i>&#160;Login</a></li>
              	<li><a class="text" href="/signup"><i class="fas fa-plus"></i>&#160;Register</a></li>`
@@ -194,12 +183,13 @@ app.listen(8080);
 app.post('/gallery', function(req, res){
 	let obj = JSON.parse(fs.readFileSync("JSON/articles.json"));
 	function filter_by_topic(value){
-		return value.type === req.body.type;
+		return value.topic === req.body.topic;
 	}
-	if(req.body.type){
+	if(req.body.topic){
 		obj = obj.filter(filter_by_topic);
 	}
 	res.send(obj);
+	
 });
 
 
@@ -212,10 +202,9 @@ app.post('/makeArticle.html', upload.array('photo', 12), function (req, res, nex
 	article.push(req.body);
 	Object.assign(article[article.length-1], {userId: `${userID}`});
 	Object.assign(article[article.length-1], {articleId: `${Math.random().toString(36).substr(2, 9)}`});
-	Object.assign(article[article.length-1], {time: `${d.toString()  }`});
+	Object.assign(article[article.length-1], {time: `${d.toString() }`});
 	fs.writeFileSync('JSON/articles.json', JSON.stringify(article), 'utf8');
-
-
+	res.redirect('back');
 });
 
 
@@ -243,7 +232,6 @@ app.post('/signUp.html', function (req, res) {
 		users.push(req.body);
 		req.session.userId = newId;
 		userID = req.session.userId;
-		res.end('so sad')
 		fs.writeFileSync('JSON/users.json', JSON.stringify(users), 'utf8');
 	}
 });
@@ -271,3 +259,44 @@ app.post('/signIn.html', function (req, res) {
 		res.end('Sorry, your password is wrong')
 	}
 });
+
+
+app.post('/remove_article', function(req, res){
+	let art = JSON.parse(fs.readFileSync("JSON/articles.json"));
+	const num = req.body.num;
+	art[num].photos.forEach((item) => {
+		const oldPath = item.substr(3);
+		try{
+			fs.unlinkSync(oldPath);
+		}
+		catch (e) {
+			console.log(e)
+		}
+	});
+	art.splice(num, 1);
+	fs.writeFileSync('JSON/articles.json', JSON.stringify(art), 'utf8');
+	res.end('OK')
+});
+
+
+app.post('/post_feedback', function (req, res) {
+	let feedback = JSON.parse(fs.readFileSync("JSON/feedback.json"));
+	const users = JSON.parse(fs.readFileSync("JSON/users.json"));
+	let obj = {};
+	let now = new Date();
+	console.log(req.url);
+	obj.time = String(now).substr(0, 24);
+	console.log(users);
+	console.log(feedback);
+	users.forEach((item) => {
+		if(item.userId === req.session.userId){
+			obj.name = `${item.firtname} ${item.lastname}`;
+		}
+	});
+	obj.text = req.body.text;
+	feedback.push(obj);
+	fs.writeFileSync('JSON/feedback.json', JSON.stringify(feedback), 'utf8');
+	res.send("OK")
+});
+
+

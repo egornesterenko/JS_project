@@ -3,7 +3,7 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: 100px;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
 }
 
 .captain-contact-page h2 {
@@ -20,14 +20,14 @@
     width: 60px;
     height: 3px;
     margin: 30px auto 0;
-
     background: #f38181;
 }
 
 .inside-container {
     margin-top: 25px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
 }
 
 .photo-about {
@@ -36,7 +36,6 @@
 }
 
 .about-us-text{
-
     text-align: center;
     width: 50%;
 }
@@ -49,7 +48,7 @@
     font-family: "Montserrat";
 }
 
-.text-about  {
+.text-about {
     width: 70%;
     padding-left: 70px;
     font-family: "Montserrat";
@@ -63,7 +62,27 @@ hr {
 }
 
 
-
+.search{
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    
+    right: 0.5em;
+    margin-bottom: 20px;
+}
+.input_search{
+    height: 1.2em;
+    border-radius: 4px;
+    font-size: 1.1em;
+}
+.button_search{
+    display: inline-block;
+    padding: 0.3em 0.5em;
+    border-radius: 4px;
+    background-color: #81aaa7;
+    font-size: 1.27em;
+    cursor: pointer;
+}
 
 @media screen and (max-width: 990px) {
 
@@ -72,7 +91,6 @@ hr {
         display: flex;
     }
     .photo-about {
-        margin: 0 auto;
         width: 100%;
     }
     .text-about,
@@ -84,9 +102,8 @@ hr {
     .inside-container {
         display: block;
     }
-    .captain-text-about  {
-        padding: 0;
-        margin: 20px auto;
+    .captain-text-about {
+        margin-top: 20px;
     }
 }
 

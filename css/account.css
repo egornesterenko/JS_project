@@ -6,6 +6,9 @@
 .account_info{
     display: inline-block;
     height: 100%;
+    font-family: "Montserrat";
+    font-size: 15px;
+    color: #3a3a3a;
 }
 
 .account_icon{
@@ -23,9 +26,7 @@
     margin: 0.3em;
 }
 .account_adverts_wrapper{
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
+    display: block;
 }
 .account_reviews_wrapper{
     display: -webkit-box;
@@ -33,4 +34,48 @@
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+}
+
+.card {
+    z-index: 0;
+    display: inline-block;
+    padding: 0;
+}
+
+.card_description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    padding: 0;
+}
+
+
+.topic {
+    font-family: "Montserrat";
+    font-size: 35px;
+    color: white;
+    background-color: #3a3a3a;
+    opacity: 0.7; 
+}
+
+.button_remove_article{
+    display: block;
+    margin: 0 auto;
+    margin-top: 200px;
+    font-size: 40px;
+    color: white;
+    font-family: "Montserrat";
+    text-shadow: -1px -1px 29px black;
+    text-align: center;
+    text-decoration: none;
+    width: 250px;
+    cursor: pointer;
+    background-color: #ffcc01;
+    border-radius: 4px;
+}
+
+.card_photo_cover {
+    cursor: default;
 }

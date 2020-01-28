@@ -21,9 +21,8 @@
 			<ul class="menu touch">
 				<li><a class="logo" href="http://localhost:8080/">#hashtag</a></li>
 				<li><a href="http://localhost:8080/about.html">About</a></li>
-				<li><a href="http://localhost:8080/findArticle.html">Find article</a></li>
+				<li><a href="http://localhost:8080/gallery">Find article</a></li>
 			</ul>
-			
 			<span class="toggle">☰</span>
 			</label>
 		</nav>
@@ -41,8 +40,11 @@
                 <p class="text-about">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </div>
         </div>
-
     </div>
+	 <div class="search">
+            <input class="input_search" type="text" placeholder="Search">
+            <div class="button_search"><i class="fas fa-search"></i></div>
+       </div>
     <div id="map"></div>
 <footer class="footer">
     <div class="share_wrapper">
@@ -50,17 +52,16 @@
            onclick="popup(`http://www.facebook.com/share.php?u=https://${shareUrl}`)">
             <i class="fab fa-facebook"></i></a>
         <a class="share_link" href="#"
-           onclick="popup('https://twitter.com/intent/tweet?&status='+document.title+'%20Agency%20––%20The%20way%20to%20your%20home++%28'+shareUrl+'%29&hashtags=realestate,ketler,ketleragency')">
+           onclick="popup('https://twitter.com/intent/tweet?&status='+document.title+'%20––%20Create%20your%20blog++%28'+shareUrl+'%29&hashtags=blog')">
             <i class="fab fa-twitter"></i></a>
         <a class="share_link" href="#"
-           onclick="popup(`https://telegram.me/share/url?url=${shareUrl}&text=Ketler%20Agency%20–%20The%20way%20to%20your%20home`)">
+           onclick="popup(`https://telegram.me/share/url?url=${shareUrl}&text=Hashtag%20Blog%20–%20Create%20smth%20by%20yourself`)">
             <i class="fab fa-telegram"></i></a>
     </div>
     <div class="footer_text_block text">
         <span class="footer_text text">©2020 #hashtag blog. All Rights Reserved.</span>
         <span class="footer_text text">Site by Yehor Nesterenko</span>
     </div>
-
 </footer>
 <script>
 	    let geocoder;
@@ -89,7 +90,7 @@
             arr.forEach((curr)=>{
             	console.log(curr);
 				var InfoWindow = new google.maps.InfoWindow({
-					content: `<a href="http://localhost:8080/advert?advertId=${curr.id}">
+					content: `<a href="http://localhost:8080/article?articleId=${curr.id}">
                         ${curr.city},${curr.address}
                         cost:${curr.cost}$
                     </a>`
@@ -120,5 +121,6 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKPPrDq5nnnNCZVat5gfT6YpzVyFqpkJM&callback=initMap">
 </script>
 <script src="js/navigation.js"> </script>
+<script src="js/search.js"> </script>
 </body>
 </html>

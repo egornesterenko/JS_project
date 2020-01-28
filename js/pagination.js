@@ -1,5 +1,5 @@
 
-//filters for custom choose
+
 
 function filter_by_topic(value){
 	return value.topic === document.getElementById('filter_topic').value;
@@ -19,7 +19,7 @@ function filter(someData, topic) {
 //
 let config = {
 		max_results: 1,
-		max_per_page: 9,
+		max_per_page: 8,
 		page: 1
 	},
 	nOfPages = Math.ceil( config.max_results / config.max_per_page );
@@ -28,7 +28,7 @@ let config = {
 function changeConfigs(someData){
 	config = {
 		max_results: someData.length,
-		max_per_page: 9,
+		max_per_page: 6,
 		page: 1
 	},
 		nOfPages = Math.ceil( config.max_results / config.max_per_page );
@@ -117,10 +117,6 @@ function update_page(someData){
 	document.getElementsByClassName("page_nav")[0].innerHTML = build_nav(someData);
 	document.getElementsByClassName("page_nav")[1].innerHTML = build_nav(someData);
 	build_results(someData);
-	
-	
-	// document.getElementsByClassName('pagination_page')[config.page-1]
-	// document.getElementsByClassName('pagination_page')[config.page-1 + nOfPages].style.backgroundColor = "#81aaa7"
 }
 
 //Building navigation bar
@@ -228,7 +224,7 @@ else{
 			let set = new Set();
 			console.log(res.data)
 			res.data.forEach((obj) => {
-				set.add(obj)
+				set.add(obj.topic)
 			})
 			for(let item of set){
 				let parNode  = document.getElementById('filter_topic');
@@ -239,6 +235,7 @@ else{
 			}
 			changeConfigs(res.data);
 			init(res.data);
+
 		})
 		.catch(function (err) {
 			console.log(err);
@@ -246,51 +243,19 @@ else{
 }
 
 
-//});
+document.getElementsByClassName("filter_button")[0].onclick = function(){
+	axios.post("/gallery", {})
+		.then(function(res){
+			let filteredData = filter(res.data, document.getElementById('filter_topic').value);
+			changeConfigs(filteredData);
+			init(filteredData);
 
-// document.getElementById('filter_type').onchange = function(){
-// 	axios.post("./galery.html", {
-// 		type: `${document.getElementById('filter_type').value.toLowerCase()}`
-// 	})
-// 		.then(function(res){
-//
-// 		})
-// 		.catch(function (err) {
-// 			console.log(err);
-// 		});
-// };
-
-// document.getElementById('filter_topic').onchange = function(){
-// 	axios.post("/gallery", {})
-// 		.then(function(res){
-// 			let set = new Set();
-// 			res.data = res.data.filter(filter_by_topic)
-// 			res.data.forEach((obj) => {
-// 				set.add(obj.topic)
-// 			})
-			
-// 			for(let item of set){
-// 				let parNode  = document.getElementById('filter_topic');
-// 				let currNode = document.createElement('option');
-// 				currNode.innerText = item;
-// 				currNode.className= "filter_topic_option";
-				
-// 			}
-// 		})
-// 		.catch(function (err) {
-// 			console.log(err);
-// 		});
-// };
-
-// document.getElementsByClassName("filter_button")[0].onclick = function(){
-// 	axios.post("/gallery", {})
-// 		.then(function(res){
-// 			let filteredData = filter(res.data, document.getElementById('filter_topic').value);
-// 			changeConfigs(filteredData);
-// 			init(filteredData);
-// 		})
-// 		.catch(function (err) {
-// 			console.log(err);
-// 		});
-// }
+		})
+		.then(function (){
+			// window.location.replace(`http://localhost:8080/gallery?${document.getElementById('filter_topic').value}`);
+		})
+		.catch(function (err) {
+			console.log(err);
+		});
+}
 

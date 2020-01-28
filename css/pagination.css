@@ -1,10 +1,16 @@
 .pagination{
     padding: 1em;
     text-align: center;
+    font-family: "Montserrat";
 }
 .pagination a{
     text-decoration: none;
     color: black;
+}
+
+.pagination input {
+    margin-left: 10px;
+    margin-right: 10px;
 }
 .pagination_nav{
     display: inline;
@@ -31,3 +37,13 @@
     font-size: 1.1em;
     border: 1px solid #ccc;
 }
+
+@media screen and (max-width: 920px) {
+    .pagination label{
+        display: none;
+    }
+    .pagination input {
+        margin-left: 0px;
+        margin-right: 0px;
+}
+    }

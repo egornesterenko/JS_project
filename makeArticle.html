@@ -22,7 +22,7 @@
 			<ul class="menu touch">
 				<li><a class="logo" href="http://localhost:8080/">#hashtag</a></li>
 				<li><a href="http://localhost:8080/about.html">About</a></li>
-				<li><a href="http://localhost:8080/findArticle.html">Find article</a></li>
+				<li><a href="http://localhost:8080/gallery">Find article</a></li>
 			</ul>
 			
 			<span class="toggle">☰</span>
@@ -60,10 +60,10 @@
            onclick="popup(`http://www.facebook.com/share.php?u=https://${shareUrl}`)">
             <i class="fab fa-facebook"></i></a>
         <a class="share_link" href="#"
-           onclick="popup('https://twitter.com/intent/tweet?&status='+document.title+'%20Agency%20––%20The%20way%20to%20your%20home++%28'+shareUrl+'%29&hashtags=realestate,ketler,ketleragency')">
+           onclick="popup('https://twitter.com/intent/tweet?&status='+document.title+'%20––%20Create%20your%20blog++%28'+shareUrl+'%29&hashtags=realestate,ketler,ketleragency')">
             <i class="fab fa-twitter"></i></a>
         <a class="share_link" href="#"
-           onclick="popup(`https://telegram.me/share/url?url=${shareUrl}&text=Ketler%20Agency%20–%20The%20way%20to%20your%20home`)">
+           onclick="popup(`https://telegram.me/share/url?url=${shareUrl}&text=Hashtag%20Blog%20–%20Create%20smth%20by%20yourself`)">
             <i class="fab fa-telegram"></i></a>
     </div>
     <div class="footer_text_block text">
@@ -74,8 +74,6 @@
 <script>
 	let formData = new FormData();
 	document.getElementsByTagName('form')[0].addEventListener("submit", function() {
-		// axios.post("./galery.html", {})
-		// 	.then(function(res){
 				const imagefile = document.getElementById('file');
 				formData.append("image", imagefile.files[0]);
 				console.log(formData);
@@ -83,7 +81,6 @@
 					headers: {
 						'Content-Type': 'multipart/form-data'
 					}
-				// })
 			})
 			.catch(function (err) {
 				console.log(err);
