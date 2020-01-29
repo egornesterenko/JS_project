@@ -1,9 +1,12 @@
 .feedback_wrapper{
 }
 .feedback_block{
+    background: #FFFFF6;
+    font-family: "Montserrat";
     padding: 1.5em;
     margin: 2em;
     border: 1px solid black;
+    border-radius: 20px;
 }
 .feedback_username{
     font-size: 1.6em;
@@ -23,7 +26,6 @@
     cursor: pointer;
 }
 .not_user_text{
-    /*display: inline-block;*/
     width: 17.4em;
     margin: auto;
     color: #cccccc;

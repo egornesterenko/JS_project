@@ -19,7 +19,7 @@ function filter(someData, topic) {
 //
 let config = {
 		max_results: 1,
-		max_per_page: 8,
+		max_per_page: 6,
 		page: 1
 	},
 	nOfPages = Math.ceil( config.max_results / config.max_per_page );
@@ -187,7 +187,8 @@ function build_results(someData) {
 	}
 	for(let i = 0; i < document.getElementsByClassName('card').length; i++){
 		document.getElementsByClassName('card')[i].onclick = function(){
-			window.location.href = `http://localhost:8080/article?articleId=${someData[i].articleId}`
+			let k = i + (config.page-1) * 6;
+			window.location.href = `http://localhost:8080/article?articleId=${someData[k].articleId}`
 		}
 
 
@@ -222,7 +223,6 @@ else{
 	})
 		.then(function(res){
 			let set = new Set();
-			console.log(res.data)
 			res.data.forEach((obj) => {
 				set.add(obj.topic)
 			})
@@ -249,10 +249,8 @@ document.getElementsByClassName("filter_button")[0].onclick = function(){
 			let filteredData = filter(res.data, document.getElementById('filter_topic').value);
 			changeConfigs(filteredData);
 			init(filteredData);
-
 		})
 		.then(function (){
-			// window.location.replace(`http://localhost:8080/gallery?${document.getElementById('filter_topic').value}`);
 		})
 		.catch(function (err) {
 			console.log(err);

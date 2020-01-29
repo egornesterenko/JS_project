@@ -29,10 +29,7 @@
     display: block;
 }
 .account_reviews_wrapper{
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
 }
 
@@ -79,3 +76,4 @@
 .card_photo_cover {
     cursor: default;
 }
+

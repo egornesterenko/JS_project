@@ -58,7 +58,7 @@
 
 </div>
 </section>
-    <footer class="footer">
+ <footer class="footer">
     <div class="share_wrapper">
         <a class="share_link" href="#"
            onclick="popup(`http://www.facebook.com/share.php?u=https://${shareUrl}`)">
@@ -79,32 +79,7 @@
     window.addEventListener("load", function() {
         axios.post("/loadUser", {})
             .then(function(res){
-                if(res){
-                    //document.getElementsByClassName('menu')[0].innerHTML += res.data.html;
-                    if(res.data.id === 'admin'){
-                        let parNode = document.getElementsByClassName('advert_block_information')[0];
-                        let currNode = document.createElement('div');
-                        currNode.setAttribute('type', 'text');
-                        currNode.setAttribute('id', 'button_remove');
-                        currNode.setAttribute('onclick', 'removeClick()');
-                        currNode.className= "button_remove button_advert";
-                        currNode.innerText = 'Remove';
-                        parNode.appendChild(currNode);
-                    }
-                    else if(!res.data.id){
-                        let parNode = document.getElementsByClassName('advert_block_information_part')[0];
-                        let currNode = document.createElement('label');
-                        currNode.className= "explen_text text";
-                        currNode.setAttribute('for', 'explen_button');
-                        currNode.innerText = `Enter your phone, and we will call you`;
-                        parNode.appendChild(currNode);
-
-                        currNode = document.createElement('input');
-                        currNode.setAttribute('id', 'explen_button');
-                        currNode.setAttribute('type', 'text');
-                        parNode.appendChild(currNode);
-                    }
-                }
+                
             })
             .catch(function (err) {
                 console.log(err);

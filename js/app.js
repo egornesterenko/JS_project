@@ -10,10 +10,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'));
 const session = require('express-session');
+let userID;
 // app.use(connect.cookieParser());
 app.use(session({
-	name: 'sid',
-	saveUninitialized: false,
+	name: userID,
+	saveUninitialized: true,
 	resave: false,
 	secret: 'sssh, quiet! it\'s a secret!',
 	cookie: {
@@ -37,16 +38,6 @@ function checkLoginAfter(req, res, next) {
 		next();
 	}
 }
-function checkAdmin(req, res, next) {
-	if (req.session.userId !== 'admin') {
-		res.redirect('/')
-	} else {
-		next();
-	}
-}
-
-
-let userID;
 
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
@@ -69,7 +60,6 @@ app.get('/account', checkLoginBefore, (req, res) => {
 
 app.post('/get_user_acc', (req, res) => {
 	let users = JSON.parse(fs.readFileSync("JSON/users.json"));
-	
 	users.forEach((item) => {
 		if(item.userId === req.session.userId){
 			res.send(item)
@@ -79,7 +69,6 @@ app.post('/get_user_acc', (req, res) => {
 
 app.post('/get_feedback', (req, res) => {
 	res.send(JSON.parse(fs.readFileSync("JSON/feedback.json")));
-	
 });
 
 app.post('/get_user_articles', (req, res) => {
@@ -96,7 +85,6 @@ app.post('/get_user_articles', (req, res) => {
 
 app.post('/get_user_by_article', (req, res) => {
 	let users = JSON.parse(fs.readFileSync("JSON/users.json"));
-
 	let arr = [];
 	
 	users.forEach((item) => {
@@ -108,9 +96,6 @@ app.post('/get_user_by_article', (req, res) => {
 
 app.get('/logout', checkLoginBefore, (req, res) => {
 	req.session.destroy(err => {
-		// if(err){
-		//
-		// }
 		userID = 0;
 		res.clearCookie('sid');
 		res.redirect('/')
@@ -138,10 +123,6 @@ app.post('/article', (req, res) => {
 	});
 });
 
-app.get('/account', checkLoginBefore, (req, res) => {
-	res.sendFile('account.html', { root: '.' })
-});
-
 
 app.get('/login', checkLoginAfter, (req, res) => {
 	res.sendFile('./signIn.html', { root: '.' })
@@ -158,7 +139,6 @@ app.get('/*', function(req, res) {
 
 
 app.post('/loadUser', function(req, res){
-
 	if (!req.session.userId) {
 		res.send({
 			html: `<li><a class="text" href="/login"><i class="fas fa-sign-in-alt"></i>&#160;Login</a></li>
@@ -198,18 +178,21 @@ app.post('/makeArticle.html', upload.array('photo', 12), function (req, res, nex
 	let photoNames = [];
 	req.files.forEach((item) => {photoNames.push(`../media/PostPhoto/${item.filename}`)})
 	req.body.photos = photoNames;
+	if (photoNames.length == 0) {
+		photoNames.push(`../media/PostPhoto/no-image.png`);
+	}
 	let d = Date(Date.now()); 
 	article.push(req.body);
 	Object.assign(article[article.length-1], {userId: `${userID}`});
 	Object.assign(article[article.length-1], {articleId: `${Math.random().toString(36).substr(2, 9)}`});
 	Object.assign(article[article.length-1], {time: `${d.toString() }`});
 	fs.writeFileSync('JSON/articles.json', JSON.stringify(article), 'utf8');
-	res.redirect('back');
+	res.redirect(req.get('referer'));
+	res.end("");
 });
 
 
 app.post('/signUp.html', function (req, res) {
-
 	let users = JSON.parse(fs.readFileSync("JSON/users.json"));
 	let out = 0;
 	users.forEach((item) => {
@@ -233,6 +216,7 @@ app.post('/signUp.html', function (req, res) {
 		req.session.userId = newId;
 		userID = req.session.userId;
 		fs.writeFileSync('JSON/users.json', JSON.stringify(users), 'utf8');
+		res.end("we are winners");
 	}
 });
 

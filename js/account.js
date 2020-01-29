@@ -9,14 +9,12 @@ window.addEventListener('load', function(){
 					let currNode = document.createElement('div');
 					currNode.className= "card";
 					parNode.appendChild(currNode);
-
 					//
 					parNode = document.getElementsByClassName('card')[i]
 					currNode = document.createElement('div');
 					currNode.className= "card_photo";
 					currNode.style.backgroundImage = `url(${res.data[i].photos[0]})`;
 					parNode.appendChild(currNode);
-
 					//
 					currNode = document.createElement('div');
 					currNode.className= "card_description";
@@ -26,16 +24,12 @@ window.addEventListener('load', function(){
 					currNode = document.createElement('div');
 					currNode.className= "card_photo_cover";
 					parNode.appendChild(currNode);
-
-
 					//
 					parNode = document.getElementsByClassName('card_photo_cover')[i]
 					currNode = document.createElement('span');
 					currNode.className= "topic";
 					currNode.innerHTML = res.data[i].topic;
 					parNode.appendChild(currNode);
-
-
 					//
 					parNode = document.getElementsByClassName('card_photo_cover')[i]
 					currNode = document.createElement('button');
@@ -49,8 +43,6 @@ window.addEventListener('load', function(){
 					currNode.className= "short_description text";
 					currNode.innerHTML = res.data[i].full_description
 					parNode.appendChild(currNode);
-
-				
 				}
 			}
 
@@ -96,7 +88,8 @@ axios.post('/get_user_acc',{})
 		//
 		currNode = document.createElement('div');
 		currNode.className= "account_telephone account_info_part";
-		currNode.innerHTML = res.data.telephone;
+		currNode.innerHTML = "Mobile: " + res.data.telephone;
+
 		parNode.appendChild(currNode);
 		//
 		currNode = document.createElement('div');

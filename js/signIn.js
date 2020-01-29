@@ -6,8 +6,8 @@ form.addEventListener("submit", function (event) {
         event.preventDefault();
         
         let data = {};
-        data.password   = pass.value;
-        data.login      = login.value;
+        data.password = pass.value;
+        data.login = login.value;
         axios({
             method: 'post',
             url: '/signIn.html',

@@ -170,5 +170,11 @@ i:hover {
     color: black;
 }
 
-
-
+#error {
+    font-family: 'Montserrat';
+    display: flex;
+    color: red;
+    font-weight: bold;
+    justify-content: center;
+    padding-top: 20px;
+}
